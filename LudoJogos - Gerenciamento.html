@@ -7,32 +7,33 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --ink:      #0F1F10;
-      --forest:   #1A4A1E;
-      --pine:     #2D6B32;
-      --sage:     #4A8B4F;
-      --cream:    #F5F0E8;
-      --parchment:#EDE7D9;
-      --cardinal: #C0392B;
-      --ruby:     #E74C3C;
-      --gold:     #D4A017;
+      /* Tema escuro */
+      --bg:       #0D1117;
+      --surface:  #161B22;
+      --surface2: #1C2128;
+      --surface3: #21262D;
+      --border:   rgba(255,255,255,0.08);
+      --border-s: rgba(255,255,255,0.14);
+      --ink:      #E6EDF3;
+      --muted:    #7D8590;
+      --forest:   #238636;
+      --pine:     #2EA043;
+      --sage:     #3FB950;
+      --cardinal: #DA3633;
+      --ruby:     #F85149;
+      --gold:     #D29922;
       --white:    #FDFBF7;
-      --surface:  #F7F4EE;
-      --muted:    #6B6B5A;
-      --border:   rgba(26,74,30,0.12);
-      --border-s: rgba(26,74,30,0.22);
       --font-d:   'Fraunces', Georgia, serif;
       --font-b:   'DM Sans', system-ui, sans-serif;
     }
 
     html { scroll-behavior: smooth; }
     body {
-      background: var(--surface);
+      background: var(--bg);
       color: var(--ink);
       font-family: var(--font-b);
       font-weight: 300;
@@ -40,107 +41,85 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── LOGIN ────────────────────────────── */
+    /* ── LOGIN ─────────────────────────────── */
     .login-wrap {
       min-height: 100vh;
       display: flex; align-items: center; justify-content: center;
-      background: var(--ink);
+      background: var(--bg);
       position: relative; overflow: hidden;
     }
-    /* Padrão de grade decorativo */
     .login-wrap::before {
       content: '';
       position: absolute; inset: 0;
       background-image:
-        linear-gradient(rgba(26,74,30,0.15) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(26,74,30,0.15) 1px, transparent 1px);
+        linear-gradient(rgba(35,134,54,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(35,134,54,0.08) 1px, transparent 1px);
       background-size: 48px 48px;
     }
     .login-wrap::after {
       content: '';
       position: absolute;
-      width: 600px; height: 600px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(26,74,30,0.3), transparent 70%);
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(35,134,54,0.12), transparent 70%);
       top: 50%; left: 50%; transform: translate(-50%,-50%);
+      pointer-events: none;
     }
-
     .login-card {
       position: relative; z-index: 2;
-      background: var(--white);
+      background: var(--surface);
       border: 1px solid var(--border-s);
       padding: 3rem 2.5rem;
       width: 100%; max-width: 380px;
       animation: slideUp 0.6s cubic-bezier(0.16,1,0.3,1) both;
     }
-
     .login-logo { display: flex; justify-content: center; margin-bottom: 0.5rem; }
-    .login-logo svg { height: 56px; width: auto; }
     .login-subtitle {
       text-align: center;
-      font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+      font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
       color: var(--muted); margin-bottom: 2.5rem;
     }
-
     .login-field {
       width: 100%;
-      background: var(--surface); border: 1.5px solid var(--border-s);
-      padding: 0.85rem 1rem; margin-bottom: 0.9rem;
+      background: var(--surface2); border: 1px solid var(--border-s);
+      border-radius: 3px; padding: 0.85rem 1rem; margin-bottom: 0.9rem;
       font-family: var(--font-b); font-size: 0.88rem; color: var(--ink);
       outline: none; transition: border-color 0.2s;
-      border-radius: 3px;
     }
     .login-field::placeholder { color: var(--muted); }
     .login-field:focus { border-color: var(--forest); }
-
     .login-btn {
       width: 100%; padding: 0.9rem;
-      background: var(--forest); color: var(--white);
+      background: var(--forest); color: #fff;
       font-family: var(--font-b); font-size: 0.88rem; font-weight: 600;
-      letter-spacing: 0.06em; border: none; border-radius: 3px;
-      cursor: pointer; transition: background 0.2s, transform 0.15s;
+      border: none; border-radius: 3px; cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
     }
     .login-btn:hover { background: var(--pine); transform: translateY(-1px); }
+    .login-error { color: var(--ruby); font-size: 0.8rem; text-align: center; margin-top: 0.8rem; display: none; }
 
-    .login-error {
-      color: var(--cardinal); font-size: 0.8rem; text-align: center;
-      margin-top: 0.8rem; display: none;
-    }
-
-    /* ── LAYOUT ADMIN ─────────────────────── */
+    /* ── LAYOUT ───────────────────────────── */
     .admin-wrap { display: none; }
 
-    /* SIDEBAR */
     .sidebar {
       position: fixed; top: 0; left: 0; bottom: 0; width: 240px;
-      background: var(--ink);
+      background: var(--surface);
+      border-right: 1px solid var(--border);
       display: flex; flex-direction: column;
       z-index: 100;
-      border-right: 1px solid rgba(255,255,255,0.04);
     }
-
-    .sidebar-logo {
-      padding: 1.5rem 1.6rem 1.2rem;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-    }
-    .sidebar-logo svg { height: 44px; width: auto; }
-
-    .sidebar-section {
-      padding: 0.8rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-    }
+    .sidebar-logo { padding: 1.5rem 1.6rem 1.2rem; border-bottom: 1px solid var(--border); }
+    .sidebar-section { padding: 0.8rem 0; border-bottom: 1px solid var(--border); }
     .sidebar-label {
       font-size: 0.6rem; font-weight: 600; letter-spacing: 0.16em;
-      text-transform: uppercase; color: rgba(255,255,255,0.25);
+      text-transform: uppercase; color: var(--muted);
       padding: 0.4rem 1.6rem 0.6rem;
     }
-
     .sidebar-btn {
       display: flex; align-items: center; gap: 0.7rem;
       width: 100%; padding: 0.65rem 1.6rem;
       background: none; border: none; cursor: pointer;
       font-family: var(--font-b); font-size: 0.83rem; font-weight: 400;
-      color: rgba(255,255,255,0.55);
-      text-align: left; letter-spacing: 0.01em;
+      color: var(--muted); text-align: left;
       transition: all 0.18s; position: relative;
     }
     .sidebar-btn::before {
@@ -148,196 +127,136 @@
       width: 2px; background: var(--cardinal);
       transform: scaleY(0); transition: transform 0.2s;
     }
-    .sidebar-btn:hover { color: rgba(255,255,255,0.9); background: rgba(255,255,255,0.04); }
-    .sidebar-btn.active {
-      color: #fff; background: rgba(255,255,255,0.07); font-weight: 500;
-    }
+    .sidebar-btn:hover { color: var(--ink); background: var(--surface2); }
+    .sidebar-btn.active { color: var(--ink); background: var(--surface2); font-weight: 500; }
     .sidebar-btn.active::before { transform: scaleY(1); }
-    .sidebar-btn .icon { font-size: 1rem; flex-shrink: 0; opacity: 0.7; }
-    .sidebar-btn.active .icon { opacity: 1; }
+    .sidebar-btn .icon { font-size: 1rem; flex-shrink: 0; }
 
-    .sidebar-footer {
-      margin-top: auto; padding: 1.2rem 1.6rem;
-      border-top: 1px solid rgba(255,255,255,0.07);
-    }
+    .sidebar-footer { margin-top: auto; padding: 1.2rem 1.6rem; border-top: 1px solid var(--border); }
     .sidebar-vitrine {
       display: flex; align-items: center; gap: 0.5rem;
       padding: 0.6rem 1rem;
-      background: rgba(26,74,30,0.4); color: rgba(255,255,255,0.8);
+      background: rgba(35,134,54,0.15); color: var(--sage);
+      border: 1px solid rgba(35,134,54,0.3); border-radius: 3px;
       font-size: 0.78rem; font-weight: 500; text-decoration: none;
-      border: 1px solid rgba(26,74,30,0.6); border-radius: 3px;
       transition: all 0.18s; margin-bottom: 0.75rem;
       font-family: var(--font-b);
     }
-    .sidebar-vitrine:hover { background: rgba(26,74,30,0.6); color: #fff; }
-
+    .sidebar-vitrine:hover { background: rgba(35,134,54,0.25); }
     .sidebar-logout {
       display: flex; align-items: center; gap: 0.5rem;
-      padding: 0.5rem 0; background: none; border: none;
-      font-family: var(--font-b); font-size: 0.78rem;
-      color: rgba(255,255,255,0.3); cursor: pointer;
-      transition: color 0.2s;
+      background: none; border: none; font-family: var(--font-b);
+      font-size: 0.78rem; color: var(--muted); cursor: pointer;
+      transition: color 0.2s; padding: 0.3rem 0;
     }
-    .sidebar-logout:hover { color: var(--cardinal); }
+    .sidebar-logout:hover { color: var(--ruby); }
 
-    /* CONTEÚDO PRINCIPAL */
-    .main-content {
-      margin-left: 240px;
-      min-height: 100vh;
-    }
+    .main-content { margin-left: 240px; min-height: 100vh; }
 
-    /* TOP BAR */
     .topbar {
       height: 60px;
-      background: var(--white); border-bottom: 1px solid var(--border-s);
+      background: var(--surface); border-bottom: 1px solid var(--border);
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 2.5rem;
       position: sticky; top: 0; z-index: 50;
     }
-    .topbar-title {
-      font-family: var(--font-d); font-size: 1.1rem; font-weight: 700;
-      color: var(--ink); letter-spacing: -0.01em;
-    }
+    .topbar-title { font-family: var(--font-d); font-size: 1.1rem; font-weight: 700; }
     .topbar-title span { font-weight: 300; font-style: italic; color: var(--muted); }
+    .topbar-right { display: flex; align-items: center; gap: 0.8rem; }
     .badge-admin {
       display: flex; align-items: center; gap: 0.4rem;
       padding: 0.3rem 0.8rem;
-      background: rgba(26,74,30,0.08); color: var(--pine);
-      border: 1px solid rgba(26,74,30,0.2); border-radius: 2px;
+      background: rgba(35,134,54,0.15); color: var(--sage);
+      border: 1px solid rgba(35,134,54,0.25); border-radius: 2px;
       font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
     }
     .badge-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--sage); }
 
-    /* PAGE BODY */
     .page { padding: 2rem 2.5rem; }
 
-    /* STATS ROW */
-    .stats-row {
-      display: grid; grid-template-columns: repeat(6, 1fr);
-      gap: 1rem; margin-bottom: 2.5rem;
-    }
+    /* ── STATS ─────────────────────────────── */
+    .stats-row { display: grid; grid-template-columns: repeat(6,1fr); gap: 1rem; margin-bottom: 2.5rem; }
     .stat-card {
-      background: var(--white);
-      border: 1px solid var(--border-s);
+      background: var(--surface); border: 1px solid var(--border-s);
       padding: 1.3rem 1.2rem;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: border-color 0.2s, transform 0.2s;
     }
-    .stat-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(15,31,16,0.06); }
+    .stat-card:hover { border-color: var(--border-s); transform: translateY(-2px); }
     .stat-card .slabel {
       font-size: 0.62rem; font-weight: 600; letter-spacing: 0.12em;
       text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem;
     }
-    .stat-card .svalue {
-      font-family: var(--font-d); font-size: 2rem; font-weight: 700;
-      line-height: 1; color: var(--forest);
-    }
-    .stat-card.red .svalue { color: var(--cardinal); }
-    .stat-card .sdiff {
-      font-size: 0.68rem; color: var(--muted); margin-top: 0.3rem;
-    }
+    .stat-card .svalue { font-family: var(--font-d); font-size: 2rem; font-weight: 700; color: var(--sage); line-height: 1; }
+    .stat-card.red .svalue { color: var(--ruby); }
+    .stat-card .sdiff { font-size: 0.68rem; color: var(--muted); margin-top: 0.3rem; }
 
-    /* ABAS */
-    .tab-row {
-      display: flex; border-bottom: 2px solid var(--border-s);
-      margin-bottom: 2rem;
-    }
+    /* ── ABAS ──────────────────────────────── */
+    .tab-row { display: flex; border-bottom: 1px solid var(--border-s); margin-bottom: 2rem; }
     .tab-btn {
       display: flex; align-items: center; gap: 0.5rem;
       padding: 0.85rem 1.6rem; background: none; border: none;
-      font-family: var(--font-b); font-size: 0.83rem; font-weight: 500;
-      color: var(--muted); cursor: pointer; letter-spacing: 0.01em;
-      position: relative; bottom: -2px;
+      font-family: var(--font-b); font-size: 0.83rem; font-weight: 400;
+      color: var(--muted); cursor: pointer;
+      position: relative; bottom: -1px;
       border-bottom: 2px solid transparent;
       transition: color 0.2s, border-color 0.2s;
     }
     .tab-btn:hover { color: var(--ink); }
-    .tab-btn.active { color: var(--forest); border-bottom-color: var(--forest); font-weight: 600; }
+    .tab-btn.active { color: var(--ink); border-bottom-color: var(--sage); font-weight: 500; }
 
-    /* PANEL / CARD */
-    .panel {
-      background: var(--white);
-      border: 1px solid var(--border-s);
-      margin-bottom: 2rem;
-      overflow: hidden;
-    }
+    /* ── PANEL ─────────────────────────────── */
+    .panel { background: var(--surface); border: 1px solid var(--border-s); margin-bottom: 2rem; overflow: hidden; }
     .panel-head {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 1.2rem 1.6rem;
-      border-bottom: 1px solid var(--border);
+      padding: 1.2rem 1.6rem; border-bottom: 1px solid var(--border);
     }
-    .panel-head-title {
-      display: flex; align-items: center; gap: 0.6rem;
-      font-family: var(--font-d); font-size: 1rem; font-weight: 700;
-    }
-    .panel-head-title .accent { color: var(--cardinal); }
-    .panel-head-title .accent-green { color: var(--forest); }
-
+    .panel-head-title { display: flex; align-items: center; gap: 0.6rem; font-family: var(--font-d); font-size: 1rem; font-weight: 700; }
+    .panel-head-title .accent { color: var(--ruby); }
+    .panel-head-title .accent-green { color: var(--sage); }
     .panel-body { padding: 1.6rem; }
 
-    /* FORM GRID */
-    .form-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1.1rem;
-    }
+    /* ── FORM ──────────────────────────────── */
+    .form-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.1rem; }
     .form-grid .span2 { grid-column: span 2; }
-    .form-grid .span3 { grid-column: 1 / -1; }
-    .form-grid .span1 { grid-column: span 1; }
-
+    .form-grid .span3 { grid-column: 1/-1; }
     .field-group { display: flex; flex-direction: column; gap: 0.35rem; }
-
     .field-label {
       font-size: 0.62rem; font-weight: 600; letter-spacing: 0.12em;
       text-transform: uppercase; color: var(--muted);
     }
-
     .field-input {
       width: 100%;
-      background: var(--surface); border: 1.5px solid var(--border-s);
+      background: var(--surface2); border: 1px solid var(--border-s);
       border-radius: 3px; padding: 0.72rem 0.9rem;
       font-family: var(--font-b); font-size: 0.85rem; color: var(--ink);
-      outline: none; transition: border-color 0.2s, background 0.2s;
+      outline: none; transition: border-color 0.2s;
     }
     .field-input::placeholder { color: var(--muted); }
-    .field-input:focus { border-color: var(--forest); background: var(--white); }
-
-    .field-input.aluguel:focus { border-color: var(--pine); }
-
-    select.field-input { cursor: pointer; }
-    select.field-input option { background: var(--white); }
+    .field-input:focus { border-color: var(--forest); background: var(--surface3); }
+    select.field-input option { background: var(--surface2); color: var(--ink); }
     textarea.field-input { resize: vertical; min-height: 76px; }
 
-    /* Toggle */
     .toggle-wrap { display: flex; align-items: center; gap: 0.6rem; margin-top: 0.4rem; }
     .toggle { position: relative; width: 38px; height: 21px; flex-shrink: 0; }
     .toggle input { opacity: 0; width: 0; height: 0; }
-    .toggle-slider {
-      position: absolute; inset: 0; background: var(--border-s);
-      border-radius: 21px; cursor: pointer; transition: 0.25s;
-    }
-    .toggle-slider::before {
-      content: ''; position: absolute;
-      height: 15px; width: 15px; left: 3px; bottom: 3px;
-      background: white; border-radius: 50%; transition: 0.25s;
-    }
-    input:checked + .toggle-slider { background: var(--forest); }
-    input:checked + .toggle-slider::before { transform: translateX(17px); }
+    .toggle-slider { position: absolute; inset: 0; background: var(--surface3); border: 1px solid var(--border-s); border-radius: 21px; cursor: pointer; transition: 0.25s; }
+    .toggle-slider::before { content: ''; position: absolute; height: 15px; width: 15px; left: 2px; bottom: 2px; background: var(--muted); border-radius: 50%; transition: 0.25s; }
+    input:checked + .toggle-slider { background: var(--forest); border-color: var(--forest); }
+    input:checked + .toggle-slider::before { background: #fff; transform: translateX(17px); }
     .toggle-label { font-size: 0.8rem; color: var(--muted); }
 
-    /* Preview imagem */
     .img-preview-wrap { margin-top: 0.5rem; }
     .img-preview { width: 64px; height: 64px; border-radius: 3px; object-fit: cover; border: 1px solid var(--border-s); display: none; }
     .emoji-preview { font-size: 2.5rem; display: block; margin-top: 0.3rem; }
 
-    /* Form actions */
     .form-actions {
       display: flex; align-items: center; gap: 0.8rem;
-      margin-top: 1.4rem; padding-top: 1.2rem;
-      border-top: 1px solid var(--border);
+      margin-top: 1.4rem; padding-top: 1.2rem; border-top: 1px solid var(--border);
     }
     .btn-save {
       display: inline-flex; align-items: center; gap: 0.4rem;
-      padding: 0.7rem 1.8rem;
-      background: var(--forest); color: var(--white);
+      padding: 0.65rem 1.6rem;
+      background: var(--forest); color: #fff;
       font-family: var(--font-b); font-size: 0.83rem; font-weight: 600;
       border: none; border-radius: 3px; cursor: pointer;
       transition: background 0.18s, transform 0.15s;
@@ -345,105 +264,127 @@
     .btn-save:hover { background: var(--pine); transform: translateY(-1px); }
     .btn-save.cardinal { background: var(--cardinal); }
     .btn-save.cardinal:hover { background: var(--ruby); }
-
     .btn-ghost {
-      padding: 0.7rem 1.2rem;
-      background: none; border: 1.5px solid var(--border-s);
+      padding: 0.65rem 1.2rem;
+      background: none; border: 1px solid var(--border-s);
       font-family: var(--font-b); font-size: 0.83rem; color: var(--muted);
       border-radius: 3px; cursor: pointer; transition: all 0.18s;
     }
-    .btn-ghost:hover { border-color: var(--muted); color: var(--ink); }
+    .btn-ghost:hover { border-color: var(--ink); color: var(--ink); }
 
-    /* TABELA */
+    /* ── BOTÕES EXPORTAR/IMPORTAR ──────────── */
+    .btn-export {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.5rem 1rem;
+      background: var(--surface3); color: var(--sage);
+      border: 1px solid rgba(35,134,54,0.3); border-radius: 3px;
+      font-family: var(--font-b); font-size: 0.78rem; font-weight: 500;
+      cursor: pointer; transition: all 0.18s;
+    }
+    .btn-export:hover { background: rgba(35,134,54,0.15); border-color: var(--sage); }
+    .btn-import {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.5rem 1rem;
+      background: var(--surface3); color: var(--gold);
+      border: 1px solid rgba(210,153,34,0.3); border-radius: 3px;
+      font-family: var(--font-b); font-size: 0.78rem; font-weight: 500;
+      cursor: pointer; transition: all 0.18s;
+    }
+    .btn-import:hover { background: rgba(210,153,34,0.1); border-color: var(--gold); }
+    #importFileInput { display: none; }
+
+    /* ── TABELA ─────────────────────────────── */
     .table-wrap { overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; }
-
     thead th {
       text-align: left; padding: 0.7rem 1rem;
-      font-size: 0.6rem; font-weight: 600; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--muted);
-      border-bottom: 2px solid var(--border-s);
-      background: var(--surface);
+      font-size: 0.6rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); border-bottom: 1px solid var(--border-s);
+      background: var(--surface2);
     }
-
-    tbody tr {
-      border-bottom: 1px solid var(--border);
-      transition: background 0.12s;
-    }
+    tbody tr { border-bottom: 1px solid var(--border); transition: background 0.12s; }
     tbody tr:last-child { border-bottom: none; }
-    tbody tr:hover { background: rgba(26,74,30,0.03); }
-
+    tbody tr:hover { background: var(--surface2); }
     tbody td { padding: 0.85rem 1rem; vertical-align: middle; font-size: 0.83rem; }
 
     .td-thumb { width: 44px; height: 44px; border-radius: 3px; object-fit: cover; border: 1px solid var(--border); }
     .td-emoji-fb { font-size: 1.8rem; }
     .td-name { font-family: var(--font-d); font-size: 0.9rem; font-weight: 700; }
-    .td-price { font-weight: 600; color: var(--forest); }
-    .td-price.red { color: var(--cardinal); }
+    .td-price { font-weight: 600; color: var(--sage); }
 
-    /* Badges tabela */
     .tbl-badge {
       display: inline-block; padding: 0.18rem 0.55rem; border-radius: 2px;
       font-size: 0.6rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
     }
-    .tbl-ouro   { background: #FEF3C7; color: #92400E; }
-    .tbl-prata  { background: #F1F5F9; color: #475569; }
-    .tbl-bronze { background: #FEF3C7; color: #78350F; border: 1px solid #FCD34D; }
-    .tbl-leve     { background: #F0FDF4; color: #166534; }
-    .tbl-moderado { background: #FFF7ED; color: #9A3412; }
-    .tbl-pesado   { background: #FFF1F2; color: #9F1239; }
-    .tbl-ok  { display: flex; align-items: center; gap: 0.3rem; color: var(--sage); font-size: 0.78rem; font-weight: 600; }
-    .tbl-busy { display: flex; align-items: center; gap: 0.3rem; color: var(--cardinal); font-size: 0.78rem; font-weight: 600; }
+    .tbl-ouro   { background: rgba(210,153,34,0.15); color: var(--gold); border: 1px solid rgba(210,153,34,0.3); }
+    .tbl-prata  { background: rgba(125,133,144,0.15); color: #A0A8B0; border: 1px solid rgba(125,133,144,0.3); }
+    .tbl-bronze { background: rgba(180,120,60,0.15); color: #C49060; border: 1px solid rgba(180,120,60,0.3); }
+    .tbl-leve     { background: rgba(35,134,54,0.12); color: var(--sage); border: 1px solid rgba(35,134,54,0.25); }
+    .tbl-moderado { background: rgba(210,153,34,0.12); color: var(--gold); border: 1px solid rgba(210,153,34,0.25); }
+    .tbl-pesado   { background: rgba(218,54,51,0.12); color: var(--ruby); border: 1px solid rgba(218,54,51,0.25); }
+    .tbl-ok   { display:flex; align-items:center; gap:0.3rem; color: var(--sage); font-size:0.78rem; font-weight:600; }
+    .tbl-busy { display:flex; align-items:center; gap:0.3rem; color: var(--ruby); font-size:0.78rem; font-weight:600; }
 
-    .stock-ok   { color: var(--pine); font-weight: 600; }
+    .stock-ok   { color: var(--sage); font-weight: 600; }
     .stock-low  { color: var(--gold); font-weight: 600; }
-    .stock-zero { color: var(--cardinal); font-weight: 600; }
+    .stock-zero { color: var(--ruby); font-weight: 600; }
 
-    /* Ações na tabela */
     .tbl-actions { display: flex; gap: 0.4rem; }
     .btn-tbl-edit, .btn-tbl-del {
       padding: 0.3rem 0.65rem; border: none; border-radius: 2px;
       font-family: var(--font-b); font-size: 0.72rem; cursor: pointer; transition: all 0.15s;
     }
-    .btn-tbl-edit { background: rgba(26,74,30,0.1); color: var(--pine); }
-    .btn-tbl-edit:hover { background: rgba(26,74,30,0.2); }
-    .btn-tbl-del  { background: rgba(192,57,43,0.1); color: var(--cardinal); }
-    .btn-tbl-del:hover { background: rgba(192,57,43,0.2); }
+    .btn-tbl-edit { background: rgba(35,134,54,0.15); color: var(--sage); }
+    .btn-tbl-edit:hover { background: rgba(35,134,54,0.3); }
+    .btn-tbl-del  { background: rgba(218,54,51,0.12); color: var(--ruby); }
+    .btn-tbl-del:hover  { background: rgba(218,54,51,0.25); }
 
-    /* Empty state */
-    .empty-tbl {
-      text-align: center; padding: 4rem; color: var(--muted);
-    }
+    .empty-tbl { text-align: center; padding: 4rem; color: var(--muted); }
     .empty-tbl span { font-size: 2.5rem; display: block; margin-bottom: 0.75rem; opacity: 0.35; }
 
-    /* TOAST */
+    /* ── MODAL EXPORT/IMPORT ────────────────── */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+      z-index: 500; display: none;
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.show { display: flex; }
+    .modal-box {
+      background: var(--surface); border: 1px solid var(--border-s);
+      border-radius: 4px; padding: 2rem; width: 100%; max-width: 480px;
+      animation: slideUp 0.3s cubic-bezier(0.16,1,0.3,1) both;
+    }
+    .modal-title { font-family: var(--font-d); font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .modal-desc { font-size: 0.83rem; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.6; }
+    .modal-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+    .modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--muted); font-size: 1.2rem; cursor: pointer; }
+
+    /* ── TOAST ───────────────────────────────── */
     .toast {
       position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 999;
-      background: var(--ink); color: var(--white);
+      background: var(--surface2); color: var(--ink);
       padding: 0.85rem 1.4rem; border-radius: 3px;
       font-size: 0.83rem; display: flex; align-items: center; gap: 0.6rem;
       opacity: 0; transform: translateY(8px) scale(0.97);
       transition: all 0.28s cubic-bezier(0.16,1,0.3,1);
       pointer-events: none; max-width: 320px;
       border-left: 3px solid var(--forest);
-      box-shadow: 0 8px 32px rgba(15,31,16,0.2);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
     }
     .toast.show { opacity: 1; transform: translateY(0) scale(1); }
-    .toast.err  { border-left-color: var(--cardinal); }
+    .toast.err  { border-left-color: var(--ruby); }
+    .toast.warn { border-left-color: var(--gold); }
 
-    /* ANIMAÇÕES */
     @keyframes slideUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* RESPONSIVO */
     @media (max-width: 900px) {
       .sidebar { width: 200px; }
       .main-content { margin-left: 200px; }
-      .stats-row { grid-template-columns: repeat(3, 1fr); }
+      .stats-row { grid-template-columns: repeat(3,1fr); }
       .form-grid { grid-template-columns: 1fr 1fr; }
-      .form-grid .span2 { grid-column: 1 / -1; }
     }
     @media (max-width: 640px) {
       .sidebar { display: none; }
@@ -456,19 +397,14 @@
 </head>
 <body>
 
-<!-- ════════════════════════════════════════
-     LOGIN
-════════════════════════════════════════ -->
+<!-- LOGIN -->
 <div class="login-wrap" id="loginScreen">
   <div class="login-card">
     <div class="login-logo">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 80" height="56" aria-label="LudoJogos">
-        <text x="0" y="42" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif"
-          font-size="48" font-weight="900" letter-spacing="-1" fill="#D32F2F">LU</text>
-        <text x="70" y="42" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif"
-          font-size="48" font-weight="900" letter-spacing="-1" fill="#2E7D32">DO</text>
-        <text x="4" y="74" font-family="Georgia,'Times New Roman',serif"
-          font-size="32" font-weight="400" font-style="italic" letter-spacing="1" fill="#111111">jogos</text>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 80" height="56">
+        <text x="0" y="42" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="48" font-weight="900" letter-spacing="-1" fill="#D32F2F">LU</text>
+        <text x="70" y="42" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="48" font-weight="900" letter-spacing="-1" fill="#2E7D32">DO</text>
+        <text x="4" y="74" font-family="Georgia,'Times New Roman',serif" font-size="32" font-weight="400" font-style="italic" letter-spacing="1" fill="rgba(255,255,255,0.7)">jogos</text>
       </svg>
     </div>
     <p class="login-subtitle">Área exclusiva · Administradora</p>
@@ -479,55 +415,43 @@
   </div>
 </div>
 
-<!-- ════════════════════════════════════════
-     ADMIN
-════════════════════════════════════════ -->
+<!-- ADMIN -->
 <div class="admin-wrap" id="adminScreen">
 
   <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="sidebar-logo">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 80" height="44" aria-label="LudoJogos">
-        <text x="0" y="42" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif"
-          font-size="48" font-weight="900" letter-spacing="-1" fill="#E74C3C">LU</text>
-        <text x="70" y="42" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif"
-          font-size="48" font-weight="900" letter-spacing="-1" fill="#4A8B4F">DO</text>
-        <text x="4" y="74" font-family="Georgia,'Times New Roman',serif"
-          font-size="32" font-weight="400" font-style="italic" letter-spacing="1" fill="rgba(255,255,255,0.75)">jogos</text>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 80" height="44">
+        <text x="0" y="42" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="48" font-weight="900" letter-spacing="-1" fill="#E74C3C">LU</text>
+        <text x="70" y="42" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="48" font-weight="900" letter-spacing="-1" fill="#3FB950">DO</text>
+        <text x="4" y="74" font-family="Georgia,'Times New Roman',serif" font-size="32" font-weight="400" font-style="italic" letter-spacing="1" fill="rgba(255,255,255,0.5)">jogos</text>
       </svg>
     </div>
-
     <div class="sidebar-section">
       <div class="sidebar-label">Catálogo</div>
-      <button class="sidebar-btn" id="sb-venda" onclick="trocarAba('venda')">
-        <span class="icon">📦</span> Jogos para Venda
-      </button>
-      <button class="sidebar-btn active" id="sb-aluguel" onclick="trocarAba('aluguel')">
-        <span class="icon">🎲</span> Jogos para Aluguel
-      </button>
+      <button class="sidebar-btn" id="sb-venda" onclick="trocarAba('venda')"><span class="icon">📦</span> Venda</button>
+      <button class="sidebar-btn active" id="sb-aluguel" onclick="trocarAba('aluguel')"><span class="icon">🎲</span> Aluguel</button>
     </div>
-
+    <div class="sidebar-section">
+      <div class="sidebar-label">Dados</div>
+      <button class="sidebar-btn" onclick="abrirModalExport()"><span class="icon">📤</span> Exportar dados</button>
+      <button class="sidebar-btn" onclick="document.getElementById('importFileInput').click()"><span class="icon">📥</span> Importar dados</button>
+      <input type="file" id="importFileInput" accept=".json" onchange="importarJSON(event)"/>
+    </div>
     <div class="sidebar-footer">
-      <a href="ludojogos.html" target="_blank" class="sidebar-vitrine">
-        ↗ Ver vitrine
-      </a>
-      <button class="sidebar-logout" onclick="logout()">
-        <span>⎋</span> Sair
-      </button>
+      <a href="LudoJogos - Loja.html" target="_blank" class="sidebar-vitrine">↗ Ver vitrine</a>
+      <button class="sidebar-logout" onclick="logout()"><span>⎋</span> Sair</button>
     </div>
   </aside>
 
   <!-- CONTEÚDO -->
   <div class="main-content">
-
-    <!-- TOP BAR -->
     <div class="topbar">
-      <div class="topbar-title" id="topbar-title">
-        Jogos para <span>Aluguel</span>
-      </div>
-      <div class="badge-admin">
-        <div class="badge-dot"></div>
-        Administradora
+      <div class="topbar-title" id="topbar-title">Jogos para <span>Aluguel</span></div>
+      <div class="topbar-right">
+        <button class="btn-export" onclick="exportarJSON()">📤 Exportar JSON</button>
+        <button class="btn-import" onclick="document.getElementById('importFileInput').click()">📥 Importar JSON</button>
+        <div class="badge-admin"><div class="badge-dot"></div>Administradora</div>
       </div>
     </div>
 
@@ -535,36 +459,12 @@
 
       <!-- STATS -->
       <div class="stats-row">
-        <div class="stat-card">
-          <div class="slabel">📦 À venda</div>
-          <div class="svalue" id="st-venda">0</div>
-          <div class="sdiff">jogos cadastrados</div>
-        </div>
-        <div class="stat-card">
-          <div class="slabel">Em estoque</div>
-          <div class="svalue" id="st-stock">0</div>
-          <div class="sdiff">disponíveis</div>
-        </div>
-        <div class="stat-card red">
-          <div class="slabel">Zerados</div>
-          <div class="svalue" id="st-zero">0</div>
-          <div class="sdiff">sem estoque</div>
-        </div>
-        <div class="stat-card">
-          <div class="slabel">🎲 Aluguel</div>
-          <div class="svalue" id="st-aluguel">0</div>
-          <div class="sdiff">jogos</div>
-        </div>
-        <div class="stat-card">
-          <div class="slabel">Disponíveis</div>
-          <div class="svalue" id="st-disp">0</div>
-          <div class="sdiff">para alugar</div>
-        </div>
-        <div class="stat-card red">
-          <div class="slabel">Alugados</div>
-          <div class="svalue" id="st-alugados">0</div>
-          <div class="sdiff">agora</div>
-        </div>
+        <div class="stat-card"><div class="slabel">📦 À venda</div><div class="svalue" id="st-venda">0</div><div class="sdiff">jogos</div></div>
+        <div class="stat-card"><div class="slabel">Em estoque</div><div class="svalue" id="st-stock">0</div><div class="sdiff">disponíveis</div></div>
+        <div class="stat-card red"><div class="slabel">Zerados</div><div class="svalue" id="st-zero">0</div><div class="sdiff">sem estoque</div></div>
+        <div class="stat-card"><div class="slabel">🎲 Aluguel</div><div class="svalue" id="st-aluguel">0</div><div class="sdiff">jogos</div></div>
+        <div class="stat-card"><div class="slabel">Disponíveis</div><div class="svalue" id="st-disp">0</div><div class="sdiff">para alugar</div></div>
+        <div class="stat-card red"><div class="slabel">Alugados</div><div class="svalue" id="st-alugados">0</div><div class="sdiff">agora</div></div>
       </div>
 
       <!-- ABAS -->
@@ -573,22 +473,14 @@
         <button class="tab-btn active" id="tab-aluguel" onclick="trocarAba('aluguel')">🎲 Aluguel</button>
       </div>
 
-      <!-- ── PAINEL VENDA ── -->
+      <!-- PAINEL VENDA -->
       <div id="painel-venda" style="display:none">
-
-        <!-- Form venda -->
         <div class="panel">
-          <div class="panel-head">
-            <div class="panel-head-title">＋ Cadastrar <span class="accent">jogo para venda</span></div>
-          </div>
+          <div class="panel-head"><div class="panel-head-title">＋ Cadastrar <span class="accent">jogo para venda</span></div></div>
           <div class="panel-body">
             <div class="form-grid">
-              <div class="field-group">
-                <label class="field-label">Nome do jogo *</label>
-                <input type="text" class="field-input" id="v-nome" placeholder="ex: Catan"/>
-              </div>
-              <div class="field-group">
-                <label class="field-label">Categoria *</label>
+              <div class="field-group"><label class="field-label">Nome *</label><input type="text" class="field-input" id="v-nome" placeholder="ex: Catan"/></div>
+              <div class="field-group"><label class="field-label">Categoria *</label>
                 <select class="field-input" id="v-cat">
                   <option value="">Selecione...</option>
                   <option value="familia">Família</option>
@@ -597,29 +489,12 @@
                   <option value="dois">2 Jogadores</option>
                 </select>
               </div>
-              <div class="field-group">
-                <label class="field-label">Preço (R$) *</label>
-                <input type="number" class="field-input" id="v-preco" placeholder="279.90" step="0.01" min="0"/>
-              </div>
-              <div class="field-group">
-                <label class="field-label">Estoque (un.)</label>
-                <input type="number" class="field-input" id="v-estoque" placeholder="10" min="0" value="1"/>
-              </div>
-              <div class="field-group">
-                <label class="field-label">Jogadores</label>
-                <input type="text" class="field-input" id="v-jogadores" placeholder="ex: 2–4"/>
-              </div>
-              <div class="field-group">
-                <label class="field-label">Duração</label>
-                <input type="text" class="field-input" id="v-duracao" placeholder="ex: 60min"/>
-              </div>
-              <div class="field-group">
-                <label class="field-label">Emoji fallback</label>
-                <input type="text" class="field-input" id="v-emoji" placeholder="🎲" maxlength="4" oninput="document.getElementById('v-emojiPreview').textContent=this.value||'🎲'"/>
-                <span class="emoji-preview" id="v-emojiPreview">🎲</span>
-              </div>
-              <div class="field-group">
-                <label class="field-label">Badge</label>
+              <div class="field-group"><label class="field-label">Preço (R$) *</label><input type="number" class="field-input" id="v-preco" placeholder="279.90" step="0.01" min="0"/></div>
+              <div class="field-group"><label class="field-label">Estoque</label><input type="number" class="field-input" id="v-estoque" value="1" min="0"/></div>
+              <div class="field-group"><label class="field-label">Jogadores</label><input type="text" class="field-input" id="v-jogadores" placeholder="ex: 2–4"/></div>
+              <div class="field-group"><label class="field-label">Duração</label><input type="text" class="field-input" id="v-duracao" placeholder="ex: 60min"/></div>
+              <div class="field-group"><label class="field-label">Emoji fallback</label><input type="text" class="field-input" id="v-emoji" placeholder="🎲" maxlength="4" oninput="document.getElementById('v-emojiPreview').textContent=this.value||'🎲'"/><span class="emoji-preview" id="v-emojiPreview">🎲</span></div>
+              <div class="field-group"><label class="field-label">Badge</label>
                 <select class="field-input" id="v-badge">
                   <option value="">Sem badge</option>
                   <option value="novo">Novo</option>
@@ -627,76 +502,38 @@
                   <option value="oferta">Oferta</option>
                 </select>
               </div>
-              <div class="field-group">
-                <label class="field-label">Ativo na vitrine?</label>
-                <div class="toggle-wrap">
-                  <label class="toggle">
-                    <input type="checkbox" id="v-ativo" checked/>
-                    <span class="toggle-slider"></span>
-                  </label>
-                  <span class="toggle-label">Visível</span>
-                </div>
-              </div>
-              <div class="field-group span3">
-                <label class="field-label">URL da imagem</label>
-                <input type="url" class="field-input" id="v-imagem" placeholder="https://..." oninput="previewImg('v-imgPreview', this.value)"/>
-                <div class="img-preview-wrap">
-                  <img id="v-imgPreview" class="img-preview"/>
-                </div>
-              </div>
-              <div class="field-group span3">
-                <label class="field-label">Descrição</label>
-                <textarea class="field-input" id="v-desc" placeholder="Descreva o jogo em 1–2 frases..."></textarea>
-              </div>
+              <div class="field-group"><label class="field-label">Ativo?</label><div class="toggle-wrap"><label class="toggle"><input type="checkbox" id="v-ativo" checked/><span class="toggle-slider"></span></label><span class="toggle-label">Visível</span></div></div>
+              <div class="field-group span3"><label class="field-label">URL da imagem</label><input type="url" class="field-input" id="v-imagem" placeholder="https://..." oninput="previewImg('v-imgPreview',this.value)"/><div class="img-preview-wrap"><img id="v-imgPreview" class="img-preview"/></div></div>
+              <div class="field-group span3"><label class="field-label">Descrição</label><textarea class="field-input" id="v-desc" placeholder="Descreva o jogo..."></textarea></div>
             </div>
             <div class="form-actions">
-              <button class="btn-save" id="v-btnSave" onclick="salvarVenda()">💾 Salvar jogo</button>
+              <button class="btn-save" id="v-btnSave" onclick="salvarVenda()">💾 Salvar</button>
               <button class="btn-ghost" onclick="limparForm('venda')">Limpar</button>
             </div>
             <input type="hidden" id="v-editId"/>
           </div>
         </div>
-
-        <!-- Tabela venda -->
         <div class="panel">
-          <div class="panel-head">
-            <div class="panel-head-title">📋 Catálogo de <span class="accent">Venda</span></div>
-          </div>
+          <div class="panel-head"><div class="panel-head-title">📋 Catálogo de <span class="accent">Venda</span></div></div>
           <div class="table-wrap">
             <table>
-              <thead>
-                <tr>
-                  <th>Img</th><th>Nome</th><th>Categoria</th>
-                  <th>Preço</th><th>Estoque</th><th>Badge</th>
-                  <th>Ativo</th><th>Ações</th>
-                </tr>
-              </thead>
+              <thead><tr><th>Img</th><th>Nome</th><th>Categoria</th><th>Preço</th><th>Estoque</th><th>Badge</th><th>Ativo</th><th>Ações</th></tr></thead>
               <tbody id="tbody-venda"></tbody>
             </table>
-            <div class="empty-tbl" id="empty-venda">
-              <span>📦</span>Nenhum jogo de venda cadastrado ainda.
-            </div>
+            <div class="empty-tbl" id="empty-venda"><span>📦</span>Nenhum jogo de venda cadastrado.</div>
           </div>
         </div>
       </div>
 
-      <!-- ── PAINEL ALUGUEL ── -->
+      <!-- PAINEL ALUGUEL -->
       <div id="painel-aluguel">
-
-        <!-- Form aluguel -->
         <div class="panel">
-          <div class="panel-head">
-            <div class="panel-head-title">＋ Cadastrar <span class="accent-green">jogo para aluguel</span></div>
-          </div>
+          <div class="panel-head"><div class="panel-head-title">＋ Cadastrar <span class="accent-green">jogo para aluguel</span></div></div>
           <div class="panel-body">
             <div class="form-grid">
-              <div class="field-group">
-                <label class="field-label">Nome do jogo *</label>
-                <input type="text" class="field-input aluguel" id="a-nome" placeholder="ex: Catan"/>
-              </div>
-              <div class="field-group">
-                <label class="field-label">Categoria *</label>
-                <select class="field-input aluguel" id="a-cat">
+              <div class="field-group"><label class="field-label">Nome *</label><input type="text" class="field-input" id="a-nome" placeholder="ex: Catan"/></div>
+              <div class="field-group"><label class="field-label">Categoria *</label>
+                <select class="field-input" id="a-cat">
                   <option value="">Selecione...</option>
                   <option value="familia">Família</option>
                   <option value="estrategia">Estratégia</option>
@@ -704,120 +541,83 @@
                   <option value="dois">2 Jogadores</option>
                 </select>
               </div>
-              <div class="field-group">
-                <label class="field-label">Jogadores</label>
-                <input type="text" class="field-input aluguel" id="a-jogadores" placeholder="ex: 2–4"/>
-              </div>
-              <div class="field-group">
-                <label class="field-label">Duração</label>
-                <input type="text" class="field-input aluguel" id="a-duracao" placeholder="ex: 60min"/>
-              </div>
-              <div class="field-group">
-                <label class="field-label">Categoria negócio *</label>
-                <select class="field-input aluguel" id="a-categoria-neg" onchange="precoAutomatico()">
+              <div class="field-group"><label class="field-label">Jogadores</label><input type="text" class="field-input" id="a-jogadores" placeholder="ex: 2–4"/></div>
+              <div class="field-group"><label class="field-label">Duração</label><input type="text" class="field-input" id="a-duracao" placeholder="ex: 60min"/></div>
+              <div class="field-group"><label class="field-label">Categoria negócio *</label>
+                <select class="field-input" id="a-categoria-neg" onchange="precoAutomatico()">
                   <option value="">Selecione...</option>
                   <option value="OURO">🥇 Ouro — R$45 / R$70</option>
                   <option value="PRATA">🥈 Prata — R$30 / R$50</option>
                   <option value="BRONZE">🥉 Bronze — R$20 / R$35</option>
                 </select>
               </div>
-              <div class="field-group">
-                <label class="field-label">Complexidade</label>
-                <select class="field-input aluguel" id="a-complexidade-selo">
-                  <option value="leve">🌿 Leve (até 2.0)</option>
-                  <option value="moderado">🎲 Moderado (2.1–3.0)</option>
-                  <option value="pesado">♟️ Pesado (acima de 3.0)</option>
+              <div class="field-group"><label class="field-label">Complexidade</label>
+                <select class="field-input" id="a-complexidade-selo">
+                  <option value="leve">🌿 Leve</option>
+                  <option value="moderado">🎲 Moderado</option>
+                  <option value="pesado">♟️ Pesado</option>
                 </select>
               </div>
-              <div class="field-group">
-                <label class="field-label">Preço — 3 dias (R$)</label>
-                <input type="number" class="field-input aluguel" id="a-preco3" placeholder="Auto pela categoria" step="0.01" min="0"/>
-              </div>
-              <div class="field-group">
-                <label class="field-label">Preço — 1 semana (R$)</label>
-                <input type="number" class="field-input aluguel" id="a-preco7" placeholder="Auto pela categoria" step="0.01" min="0"/>
-              </div>
-              <div class="field-group">
-                <label class="field-label">Disponível a partir de</label>
-                <input type="date" class="field-input aluguel" id="a-disponivel"/>
-              </div>
-              <div class="field-group">
-                <label class="field-label">Emoji fallback</label>
-                <input type="text" class="field-input aluguel" id="a-emoji" placeholder="🎲" maxlength="4" oninput="document.getElementById('a-emojiPreview').textContent=this.value||'🎲'"/>
-                <span class="emoji-preview" id="a-emojiPreview">🎲</span>
-              </div>
-              <div class="field-group">
-                <label class="field-label">Badge</label>
-                <select class="field-input aluguel" id="a-badge">
+              <div class="field-group"><label class="field-label">Preço 3 dias (R$)</label><input type="number" class="field-input" id="a-preco3" placeholder="Auto" step="0.01" min="0"/></div>
+              <div class="field-group"><label class="field-label">Preço 1 semana (R$)</label><input type="number" class="field-input" id="a-preco7" placeholder="Auto" step="0.01" min="0"/></div>
+              <div class="field-group"><label class="field-label">Disponível a partir de</label><input type="date" class="field-input" id="a-disponivel"/></div>
+              <div class="field-group"><label class="field-label">Emoji fallback</label><input type="text" class="field-input" id="a-emoji" placeholder="🎲" maxlength="4" oninput="document.getElementById('a-emojiPreview').textContent=this.value||'🎲'"/><span class="emoji-preview" id="a-emojiPreview">🎲</span></div>
+              <div class="field-group"><label class="field-label">Badge</label>
+                <select class="field-input" id="a-badge">
                   <option value="">Sem badge</option>
                   <option value="novo">Novo</option>
                   <option value="destaque">Destaque</option>
                 </select>
               </div>
-              <div class="field-group">
-                <label class="field-label">Ativo na vitrine?</label>
-                <div class="toggle-wrap">
-                  <label class="toggle">
-                    <input type="checkbox" id="a-ativo" checked/>
-                    <span class="toggle-slider"></span>
-                  </label>
-                  <span class="toggle-label">Visível</span>
-                </div>
-              </div>
-              <div class="field-group span3">
-                <label class="field-label">URL da imagem</label>
-                <input type="url" class="field-input aluguel" id="a-imagem" placeholder="https://..." oninput="previewImg('a-imgPreview', this.value)"/>
-                <div class="img-preview-wrap">
-                  <img id="a-imgPreview" class="img-preview"/>
-                </div>
-              </div>
-              <div class="field-group span3">
-                <label class="field-label">Etiqueta (frase de impacto)</label>
-                <input type="text" class="field-input aluguel" id="a-etiqueta" placeholder="ex: Transforme Marte e vença a corrida espacial!"/>
-              </div>
-              <div class="field-group span3">
-                <label class="field-label">Descrição</label>
-                <textarea class="field-input aluguel" id="a-desc" placeholder="Descreva o jogo..."></textarea>
-              </div>
+              <div class="field-group"><label class="field-label">Ativo?</label><div class="toggle-wrap"><label class="toggle"><input type="checkbox" id="a-ativo" checked/><span class="toggle-slider"></span></label><span class="toggle-label">Visível</span></div></div>
+              <div class="field-group span3"><label class="field-label">URL da imagem</label><input type="url" class="field-input" id="a-imagem" placeholder="https://..." oninput="previewImg('a-imgPreview',this.value)"/><div class="img-preview-wrap"><img id="a-imgPreview" class="img-preview"/></div></div>
+              <div class="field-group span3"><label class="field-label">Etiqueta (frase de impacto)</label><input type="text" class="field-input" id="a-etiqueta" placeholder="ex: Transforme Marte e vença a corrida espacial!"/></div>
+              <div class="field-group span3"><label class="field-label">Descrição</label><textarea class="field-input" id="a-desc" placeholder="Descreva o jogo..."></textarea></div>
             </div>
             <div class="form-actions">
-              <button class="btn-save cardinal" id="a-btnSave" onclick="salvarAluguel()">💾 Salvar jogo</button>
+              <button class="btn-save cardinal" id="a-btnSave" onclick="salvarAluguel()">💾 Salvar</button>
               <button class="btn-ghost" onclick="limparForm('aluguel')">Limpar</button>
             </div>
             <input type="hidden" id="a-editId"/>
           </div>
         </div>
-
-        <!-- Tabela aluguel -->
         <div class="panel">
-          <div class="panel-head">
-            <div class="panel-head-title">📋 Catálogo de <span class="accent-green">Aluguel · Vale do Aço</span></div>
-          </div>
+          <div class="panel-head"><div class="panel-head-title">📋 Catálogo de <span class="accent-green">Aluguel · Vale do Aço</span></div></div>
           <div class="table-wrap">
             <table>
-              <thead>
-                <tr>
-                  <th>Img</th><th>Nome</th><th>Tier / Complexidade</th>
-                  <th>3 dias</th><th>1 semana</th>
-                  <th>Disponibilidade</th><th>Ativo</th><th>Ações</th>
-                </tr>
-              </thead>
+              <thead><tr><th>Img</th><th>Nome</th><th>Tier / Complexidade</th><th>3 dias</th><th>1 semana</th><th>Disponibilidade</th><th>Ativo</th><th>Ações</th></tr></thead>
               <tbody id="tbody-aluguel"></tbody>
             </table>
-            <div class="empty-tbl" id="empty-aluguel" style="display:none">
-              <span>🎲</span>Nenhum jogo de aluguel cadastrado ainda.
-            </div>
+            <div class="empty-tbl" id="empty-aluguel" style="display:none"><span>🎲</span>Nenhum jogo de aluguel cadastrado.</div>
           </div>
         </div>
       </div>
 
-    </div><!-- /page -->
-  </div><!-- /main-content -->
-</div><!-- /admin-wrap -->
+    </div>
+  </div>
+</div>
 
+<!-- MODAL EXPORTAR -->
+<div class="modal-overlay" id="modalExport">
+  <div class="modal-box" style="position:relative">
+    <button class="modal-close" onclick="fecharModal()">✕</button>
+    <div class="modal-title">📤 Exportar dados</div>
+    <div class="modal-desc">
+      Baixe um arquivo <strong>.json</strong> com todos os seus jogos cadastrados.<br/>
+      Guarde como backup ou envie para atualizar o site no GitHub.
+    </div>
+    <div class="modal-actions">
+      <button class="btn-save" onclick="exportarJSON()">⬇️ Baixar JSON completo</button>
+      <button class="btn-ghost" onclick="fecharModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script>
+
 
 // ── AUTH ──
 const ADMIN_USER = 'admin';
@@ -845,7 +645,7 @@ if (sessionStorage.getItem('ludo_auth') === '1') {
 // ── STORAGE ──
 // ── DADOS PRÉ-CARREGADOS DE ALUGUEL (gerados automaticamente) ──
 (function() {
-  const dados = [{"id": 1000, "tipo": "aluguel", "nome": "Terraforming Mars", "categoria": "familia", "categoria_negocio": "OURO", "complexidade_valor": 3.3, "complexidade_selo": "pesado", "preco3dias": "45,00", "preco1sem": "70,00", "jogadores": "1-5", "duracao": "120 min", "emoji": "♟️", "imagem": "https://cdn.shortpixel.ai/spai/q_lossy+ret_img+to_auto/fryxgames.se/wp-content/uploads/2023/08/TM.png", "desc": "Imagine que Marte é um terreno vazio e você recebeu a missão de transformar o planeta em um lugar habitável. Parece fácil… até você perceber que outras corporações estão tentando fazer o mesmo (e ganhar mais dinheiro que você). Ciência, estratégia e um pouco de competição espacial!", "etiqueta": "Transforme Marte, desenvolva tecnologias e vença a corrida espacial.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1001, "tipo": "aluguel", "nome": "7 Wonders Duel", "categoria": "dois", "categoria_negocio": "PRATA", "complexidade_valor": 2.2, "complexidade_selo": "moderado", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "2", "duracao": "30 min", "emoji": "🎲", "imagem": "https://m.media-amazon.com/images/I/61R-nY8Zi8L._AC_UF350,350_QL50_.jpg", "desc": "A versão para dois jogadores do clássico 7 Wonders. Aqui você constrói civilizações, ergue maravilhas e tenta ser mais esperto que seu oponente. Pense como um duelo estratégico… mas sem precisar de espada ou armadura.", "etiqueta": "Um duelo de civilizações cheio de estratégia.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1002, "tipo": "aluguel", "nome": "Arkham Horror: The Card Game", "categoria": "dois", "categoria_negocio": "OURO", "complexidade_valor": 3.6, "complexidade_selo": "pesado", "preco3dias": "45,00", "preco1sem": "70,00", "jogadores": "1-2", "duracao": "90 min", "emoji": "♟️", "imagem": "https://store.asmodee.com/cdn/shop/files/AHC100_box-left-preview0001_1.jpg?v=1761927680", "desc": "Um jogo cooperativo onde você investiga mistérios sobrenaturais em uma cidade cheia de cultistas, monstros e coisas que definitivamente não deveriam existir. Basicamente: resolva o mistério… antes que o mistério resolva você.", "etiqueta": "Investigue mistérios… e tente não enlouquecer no processo.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1003, "tipo": "aluguel", "nome": "Everdell", "categoria": "familia", "categoria_negocio": "OURO", "complexidade_valor": 2.8, "complexidade_selo": "moderado", "preco3dias": "45,00", "preco1sem": "70,00", "jogadores": "1-4", "duracao": "90 min", "emoji": "🎲", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-everdell--p-1654264877654.jpg", "desc": "Criaturas da floresta estão construindo uma cidade charmosa cheia de cafés, bibliotecas e construções incríveis. É um jogo lindo, estratégico e fofo… até você perceber que todo mundo está disputando os mesmos recursos.", "etiqueta": "Construa a cidade mais charmosa da floresta.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1004, "tipo": "aluguel", "nome": "Harmonies", "categoria": "familia", "categoria_negocio": "PRATA", "complexidade_valor": 2.0, "complexidade_selo": "leve", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "1-4", "duracao": "45 min", "emoji": "🎉", "imagem": "https://images.tcdn.com.br/img/img_prod/1041703/180_harmonies_5809_1_8a47dfc5a590e40a7c0db6d724eca0d5.jpg", "desc": "Um jogo relaxante de criar paisagens e habitats naturais usando peças coloridas. Parece calmo e contemplativo… até você começar a calcular cada peça como se fosse um arquiteto da natureza.", "etiqueta": "Monte paisagens e crie habitats naturais.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1005, "tipo": "aluguel", "nome": "Clank!: Um Deck Building de Aventura", "categoria": "familia", "categoria_negocio": "OURO", "complexidade_valor": 2.2, "complexidade_selo": "moderado", "preco3dias": "45,00", "preco1sem": "70,00", "jogadores": "2-4", "duracao": "90 min", "emoji": "🎲", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-clank-a-deck-building-adventure-p-1701435975671.jpg", "desc": "Entre em uma masmorra cheia de tesouros usando cartas para explorar cada vez mais fundo. O problema? Cada passo faz barulho… e barulho acorda o dragão. Pegue o tesouro e fuja rápido — ou vire churrasco medieval.", "etiqueta": "Roube o tesouro e fuja antes que o dragão acorde.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1006, "tipo": "aluguel", "nome": "Robinson Crusoe: Aventuras na Ilha Amaldiçoada", "categoria": "familia", "categoria_negocio": "OURO", "complexidade_valor": 3.8, "complexidade_selo": "pesado", "preco3dias": "45,00", "preco1sem": "70,00", "jogadores": "1-4", "duracao": "120 min", "emoji": "♟️", "imagem": "https://images.tcdn.com.br/img/img_prod/1018249/robinson_crusoe_edicao_de_colecionador_5933_1_664def53328df797e7fe1f5f05b75ca3.jpg", "desc": "Um jogo cooperativo de sobrevivência onde você e seu grupo estão presos em uma ilha cheia de perigos. Construam abrigo, busquem comida e enfrentem eventos inesperados… porque a ilha definitivamente não quer que vocês sobrevivam.", "etiqueta": "Sobreviva em uma ilha cheia de perigos e decisões difíceis.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1007, "tipo": "aluguel", "nome": "Village", "categoria": "familia", "categoria_negocio": "PRATA", "complexidade_valor": 3.1, "complexidade_selo": "pesado", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "2-4", "duracao": "60 min", "emoji": "♟️", "imagem": "https://paladinsgames.com.br/uploads/produto_fotos/20181127113240_village01.jpg", "desc": "Guie uma família através das gerações em uma vila medieval. Trabalhe, viaje, construa reputação… e aceite que, em algum momento, seus personagens vão virar parte da história da vila.", "etiqueta": "Construa a história da sua família em uma vila medieval.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1008, "tipo": "aluguel", "nome": "Zombicide: Black Plague", "categoria": "party", "categoria_negocio": "OURO", "complexidade_valor": 2.5, "complexidade_selo": "moderado", "preco3dias": "45,00", "preco1sem": "70,00", "jogadores": "1-6", "duracao": "45 min", "emoji": "🎲", "imagem": "https://cdn.awsli.com.br/800x800/2571/2571144/produto/254816008/11-r944hopxyc.jpeg", "desc": "Um jogo cooperativo de ação em que heróis medievais enfrentam hordas de zumbis. Explore o mapa, encontre equipamentos e sobreviva juntos… porque os mortos-vivos não param de chegar.", "etiqueta": "Derrote hordas de zumbis em uma fantasia medieval.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1009, "tipo": "aluguel", "nome": "Hive Pocket", "categoria": "dois", "categoria_negocio": "BRONZE", "complexidade_valor": 2.2, "complexidade_selo": "moderado", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "2", "duracao": "20 min", "emoji": "🎲", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-hive-pocket-p-1737665460781.jpg", "desc": "Um jogo abstrato para dois jogadores onde insetos com habilidades diferentes disputam posição no tabuleiro. Parece simples… até você perceber que cada movimento conta.", "etiqueta": "Um duelo estratégico de insetos para dois jogadores.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1010, "tipo": "aluguel", "nome": "Dixit", "categoria": "party", "categoria_negocio": "PRATA", "complexidade_valor": 1.2, "complexidade_selo": "leve", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "3-6", "duracao": "30 min", "emoji": "🎉", "imagem": "https://loja.galapagosjogos.com.br/ccstore/v1/images/?source=/file/v4114340520070629436/products/DIX301_3D.jpg", "desc": "Um jogo de imaginação e criatividade onde cada carta tem uma ilustração surreal. Dê pistas criativas para que alguns jogadores acertem… mas não todos!", "etiqueta": "Um jogo de criatividade, histórias e imaginação.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1011, "tipo": "aluguel", "nome": "Trio", "categoria": "party", "categoria_negocio": "BRONZE", "complexidade_valor": 1.1, "complexidade_selo": "leve", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "3-6", "duracao": "15 min", "emoji": "🎉", "imagem": "https://m.media-amazon.com/images/I/712FZZ7CfxL.jpg", "desc": "Um jogo de cartas rápido e cheio de memória. Os jogadores tentam encontrar trios de números iguais observando as cartas na mesa e na mão dos adversários. Simples de aprender, mas surpreendentemente estratégico!", "etiqueta": "Encontre trios de cartas antes dos outros jogadores.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1012, "tipo": "aluguel", "nome": "Bohnanza: Por um Punhado de Feijões!", "categoria": "party", "categoria_negocio": "PRATA", "complexidade_valor": 1.7, "complexidade_selo": "leve", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "2-7", "duracao": "45 min", "emoji": "🎉", "imagem": "https://cdn.awsli.com.br/600x450/1379/1379338/produto/141708957/0dd922fb86.jpg", "desc": "Um divertido jogo de negociação onde os jogadores plantam, colhem e… negociam feijões! Conversar, trocar cartas e fazer bons acordos é a chave para ter a plantação mais lucrativa.", "etiqueta": "Plante feij천es, negocie bem e colha moedas.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1013, "tipo": "aluguel", "nome": "Nova Luna", "categoria": "familia", "categoria_negocio": "BRONZE", "complexidade_valor": 1.9, "complexidade_selo": "leve", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "1-4", "duracao": "30 min", "emoji": "🎉", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-nova-luna-p-1743008759782.jpg", "desc": "Um puzzle estratégico inspirado nos ciclos da lua. Posicione peças cuidadosamente para cumprir objetivos e conectar cores e padrões da melhor forma possível.", "etiqueta": "Um puzzle relaxante de planejamento e conex천es.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1014, "tipo": "aluguel", "nome": "Galaxy Trucker (Second Edition)", "categoria": "familia", "categoria_negocio": "PRATA", "complexidade_valor": 2.3, "complexidade_selo": "moderado", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "2-4", "duracao": "30 min", "emoji": "🎲", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-galaxy-trucker-segunda-edicao-p-1756910252238.jpg", "desc": "Construa sua nave espacial com peças malucas e depois atravesse o espaço cheio de perigos. Meteoro, piratas e falhas na nave são só parte da diversão nessa corrida caótica pelo universo.", "etiqueta": "Monte sua nave e sobreviva à viagem espacial.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1015, "tipo": "aluguel", "nome": "Karuba", "categoria": "familia", "categoria_negocio": "PRATA", "complexidade_valor": 1.4, "complexidade_selo": "leve", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "2-4", "duracao": "30 min", "emoji": "🎉", "imagem": "https://cdn.shoplightspeed.com/shops/636564/files/44714556/1652x2313x2/rental-haba-karuba-2-lb-115-oz.jpg", "desc": "Um jogo de exploração onde aventureiros correm pela selva em busca de templos escondidos. Cada jogador cria seu próprio mapa enquanto tenta chegar primeiro aos tesouros.", "etiqueta": "Explore a selva e encontre templos escondidos.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1016, "tipo": "aluguel", "nome": "Wandering Towers", "categoria": "party", "categoria_negocio": "PRATA", "complexidade_valor": 1.6, "complexidade_selo": "leve", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "1-6", "duracao": "45 min", "emoji": "🎉", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-wandering-towers-p-1749758168857.jpg", "desc": "Magos competem para levar suas poções mágicas até a torre final enquanto torres literalmente se movem pelo caminho. Planejamento, magia e algumas pegadinhas fazem parte da jornada.", "etiqueta": "Leve seus magos até a torre final antes dos rivais.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1017, "tipo": "aluguel", "nome": "Spots", "categoria": "familia", "categoria_negocio": "PRATA", "complexidade_valor": 1.3, "complexidade_selo": "leve", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "1-4", "duracao": "30 min", "emoji": "🎉", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-spots-p-1742582014762.jpg", "desc": "Um jogo de dados rápido e divertido onde cachorrinhos adoráveis tentam completar seus lugares no quintal. Arrisque rolar mais dados… mas cuidado para não exagerar!", "etiqueta": "Role dados e complete seu time de cachorros.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1018, "tipo": "aluguel", "nome": "Challengers!", "categoria": "party", "categoria_negocio": "PRATA", "complexidade_valor": 1.8, "complexidade_selo": "leve", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "1-8", "duracao": "45 min", "emoji": "🎉", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-challengers-p-1699617414957.jpg", "desc": "Monte seu time e participe de um torneio maluco onde cartas entram em campo automaticamente. A graça está em montar o baralho perfeito para vencer adversários em rodadas rápidas.", "etiqueta": "Monte seu time e vença o torneio.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1019, "tipo": "aluguel", "nome": "Sail", "categoria": "dois", "categoria_negocio": "BRONZE", "complexidade_valor": 2.2, "complexidade_selo": "moderado", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "2", "duracao": "30 min", "emoji": "🎲", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-sail-p-1748960669966.jpg", "desc": "Um jogo cooperativo para dois jogadores onde vocês controlam um navio enfrentando perigos do mar. Comunicação e estratégia são essenciais para manter o barco navegando.", "etiqueta": "Coopere para manter o navio seguro no mar.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1020, "tipo": "aluguel", "nome": "Northgard: Terras Desconhecidas", "categoria": "familia", "categoria_negocio": "OURO", "complexidade_valor": 2.8, "complexidade_selo": "moderado", "preco3dias": "45,00", "preco1sem": "70,00", "jogadores": "2-5", "duracao": "120 min", "emoji": "🎲", "imagem": "https://m.media-amazon.com/images/I/71cxYlcN53L._AC_UF894,1000_QL80_.jpg", "desc": "Baseado no universo do videogame Northgard, aqui clãs vikings exploram terras desconhecidas, expandem territórios e competem por recursos e glória.", "etiqueta": "Explore terras novas e lidere seu clã viking.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1021, "tipo": "aluguel", "nome": "Rumble Nation", "categoria": "familia", "categoria_negocio": "PRATA", "complexidade_valor": 1.8, "complexidade_selo": "leve", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "2-4", "duracao": "45 min", "emoji": "🎉", "imagem": "https://store.asmodee.com/cdn/shop/files/HBJRNB0101EN-image0_2000.jpg?v=1743785677", "desc": "Clãs disputam o controle do Japão feudal usando dados e estratégia para dominar províncias. Simples de aprender, mas cheio de decisões importantes.", "etiqueta": "Conquiste províncias e domine o Japão feudal.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1022, "tipo": "aluguel", "nome": "Survive The Island", "categoria": "familia", "categoria_negocio": "PRATA", "complexidade_valor": 1.5, "complexidade_selo": "leve", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "2-5", "duracao": "60 min", "emoji": "🎉", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-survive-the-island-p-1726754118421.jpg", "desc": "A ilha está afundando! Resgate seus exploradores enquanto monstros marinhos, tubarões e outros perigos tentam impedir sua fuga.", "etiqueta": "Fuja da ilha antes que ela desapareça no mar.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1023, "tipo": "aluguel", "nome": "BANG!", "categoria": "party", "categoria_negocio": "BRONZE", "complexidade_valor": 1.6, "complexidade_selo": "leve", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "4-7", "duracao": "30 min", "emoji": "🎉", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-bang-p-1743772662400.jpg", "desc": "Um jogo de cartas de faroeste cheio de blefe e dedução. Xerife, fora-da-lei e renegados trocam tiros tentando descobrir quem está de cada lado.", "etiqueta": "Um duelo de cartas no velho oeste.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1024, "tipo": "aluguel", "nome": "Nimalia", "categoria": "familia", "categoria_negocio": "BRONZE", "complexidade_valor": 1.7, "complexidade_selo": "leve", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "2-4", "duracao": "30 min", "emoji": "🎉", "imagem": "https://images.tcdn.com.br/img/img_prod/558884/nimalia_888901316_1_eff47fcab286e09adc3680f7f452ac91.jpg", "desc": "Crie reservas naturais organizando cartas de animais em padrões específicos para cumprir objetivos e marcar pontos.", "etiqueta": "Monte reservas naturais e organize habitats.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1025, "tipo": "aluguel", "nome": "Marvel United: Multiverse", "categoria": "familia", "categoria_negocio": "PRATA", "complexidade_valor": 2.0, "complexidade_selo": "leve", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "1-5", "duracao": "30 min", "emoji": "🎉", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-marvel-united-multiverse-p-1736429485827.jpg", "desc": "Heróis da Marvel unem forças para derrotar vilões em um jogo cooperativo rápido e cheio de ação. Cada personagem tem habilidades únicas para salvar o dia.", "etiqueta": "Her처is se unem para derrotar vil천es.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1026, "tipo": "aluguel", "nome": "Ethnos (Segunda Edição)", "categoria": "party", "categoria_negocio": "OURO", "complexidade_valor": 2.4, "complexidade_selo": "moderado", "preco3dias": "45,00", "preco1sem": "70,00", "jogadores": "1-6", "duracao": "60 min", "emoji": "🎲", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-ethnos-2a-edicao-p-1763578311684.jpg", "desc": "Diversas tribos fantásticas disputam o controle de um reino. Recrute aliados, forme grupos poderosos e use as habilidades únicas de cada povo para dominar o mapa.", "etiqueta": "Recrute tribos e conquiste o reino.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1027, "tipo": "aluguel", "nome": "Exploding Kittens", "categoria": "familia", "categoria_negocio": "BRONZE", "complexidade_valor": 1.1, "complexidade_selo": "leve", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "2-5", "duracao": "15 min", "emoji": "🎉", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-exploding-kittens-proibidao-1628168024592.jpg", "desc": "Um jogo de cartas caótico e engraçado onde os jogadores compram cartas torcendo para não encontrar um gatinho explosivo. Se encontrar… bom, torça para ter uma carta de desarme.", "etiqueta": "Evite o gatinho explosivo e sobreviva.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1028, "tipo": "aluguel", "nome": "11 Takes", "categoria": "party", "categoria_negocio": "BRONZE", "complexidade_valor": 1.2, "complexidade_selo": "leve", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "2-7", "duracao": "30 min", "emoji": "🎉", "imagem": "https://images.tcdn.com.br/img/img_prod/1018249/pega_em_6_com_3_promos_423_1_da3345eae2068018791ea20fbc47b2fa_20220221230654.jpg", "desc": "Um jogo rápido de cartas onde cada decisão pode te dar pontos… ou um monte de cartas indesejadas. Planejamento e leitura dos adversários fazem toda a diferença.", "etiqueta": "Jogue cartas com cuidado e evite pegar pontos negativos.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1029, "tipo": "aluguel", "nome": "Arkham Horror: Hora Final", "categoria": "familia", "categoria_negocio": "BRONZE", "complexidade_valor": 2.3, "complexidade_selo": "moderado", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "1-4", "duracao": "60 min", "emoji": "🎲", "imagem": "https://www.playeasy.com.br/media/tmp/webp/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/a/r/arkhamhorrorhorafinal-1_jpg.webp", "desc": "Investigadores correm contra o tempo para impedir a invocação de um Grande Antigo na Universidade Miskatonic. Cooperem, enfrentem monstros e salvem o mundo antes que seja tarde.", "etiqueta": "Impedam o ritual antes que o horror desperte.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1030, "tipo": "aluguel", "nome": "FateFlip: Arrastado pelo Mar", "categoria": "dois", "categoria_negocio": "BRONZE", "complexidade_valor": 1.3, "complexidade_selo": "leve", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "1", "duracao": "45 min", "emoji": "🎉", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-fateflip-arrastado-pelo-mar-p-1729025398981.jpg", "desc": "Um jogo narrativo de sobrevivência no mar onde cada escolha muda o rumo da história. Decisões difíceis, eventos inesperados e muitas possibilidades de final.", "etiqueta": "Sobreviva no mar em uma aventura narrativa.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1031, "tipo": "aluguel", "nome": "Krosmaster Arena 2.0", "categoria": "familia", "categoria_negocio": "OURO", "complexidade_valor": 2.7, "complexidade_selo": "moderado", "preco3dias": "45,00", "preco1sem": "70,00", "jogadores": "2-4", "duracao": "60 min", "emoji": "🎲", "imagem": "https://rihappy.vtexassets.com/arquivos/ids/2338623/image-16b484ede1594925a5916117ed75c113.jpg?v=637771771416430000", "desc": "Um jogo tático de miniaturas onde personagens únicos duelam em arenas cheias de estratégia. Use habilidades especiais e pense alguns passos à frente para vencer.", "etiqueta": "Batalhas táticas em uma arena cheia de personagens.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1032, "tipo": "aluguel", "nome": "Beaver Creek", "categoria": "familia", "categoria_negocio": "BRONZE", "complexidade_valor": 1.1, "complexidade_selo": "leve", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "1-5", "duracao": "30 min", "emoji": "🎉", "imagem": "https://m.media-amazon.com/images/I/61RLczX4P3L._AC_UF1000,1000_QL80_.jpg", "desc": "Construa barragens e organize o trabalho dos castores para criar o melhor sistema no rio. Um jogo leve de estratégia com um toque bem divertido.", "etiqueta": "Ajude os castores a construir a melhor barragem.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1033, "tipo": "aluguel", "nome": "Jester", "categoria": "familia", "categoria_negocio": "PRATA", "complexidade_valor": 3.2, "complexidade_selo": "pesado", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "2-4", "duracao": "90 min", "emoji": "♟️", "imagem": "https://images.tcdn.com.br/img/img_prod/558884/jester_jogo_de_tabuleiro_ms_jogos_888873103_1_f3141e2979d6ea055e57b5251d14984f.jpg", "desc": "No reino medieval, bobos da corte competem para entreter o rei e ganhar prestígio. Um eurogame estratégico onde timing e planejamento fazem toda a diferença.", "etiqueta": "Conquiste o rei com as melhores apresentações.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1034, "tipo": "aluguel", "nome": "Quartz: O Jogo de Cartas", "categoria": "familia", "categoria_negocio": "BRONZE", "complexidade_valor": 1.3, "complexidade_selo": "leve", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "2-4", "duracao": "30 min", "emoji": "🎉", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-quartz-o-jogo-de-cartas-p-1686146482965.jpg", "desc": "Mineiros an천es disputam cristais preciosos em uma mina cheia de riscos. Colete gemas valiosas, mas cuidado com as explos천es que podem acabar com sua coleta.", "etiqueta": "Colete cristais… sem explodir a mina.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1035, "tipo": "aluguel", "nome": "Passa Palavras", "categoria": "dois", "categoria_negocio": "PRATA", "complexidade_valor": 1.5, "complexidade_selo": "leve", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "2", "duracao": "60 min", "emoji": "🎉", "imagem": "https://www.playeasy.com.br/media/tmp/webp/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/a/passa_palavra_jpg.webp", "desc": "Um jogo rápido de palavras onde os jogadores precisam dar dicas criativas para seus parceiros adivinharem os termos certos antes que o tempo acabe.", "etiqueta": "Dê dicas rápidas e adivinhe as palavras.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1036, "tipo": "aluguel", "nome": "AmaZoom", "categoria": "familia", "categoria_negocio": "BRONZE", "complexidade_valor": 2.0, "complexidade_selo": "leve", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "2-5", "duracao": "45 min", "emoji": "🎉", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-amazoom-uma-competicao-fotografica-na-amazonia-p-1747331060136.jpg", "desc": "Você é um fotógrafo explorando a floresta em busca das melhores imagens da vida selvagem. Planeje bem seus cliques, encontre os animais mais raros e acumule prestígio para se tornar o fotógrafo mais respeitado da mesa.", "etiqueta": "Capture os melhores momentos da vida selvagem.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1037, "tipo": "aluguel", "nome": "Balde de Caranguejo", "categoria": "familia", "categoria_negocio": "BRONZE", "complexidade_valor": 1.5, "complexidade_selo": "leve", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "2-5", "duracao": "30 min", "emoji": "🎉", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-balde-de-caranguejo-p-1747331259377.jpg", "desc": "Um jogo cooperativo estratégico onde você e seus amigos precisam trabalhar juntos para alcançar o objetivo. Comunicação e planejamento são essenciais para escapar do famoso “balde de caranguejos”.", "etiqueta": "Coopere com seus amigos para vencer o desafio.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1038, "tipo": "aluguel", "nome": "Disney Coup: Truques Traiçoeiros", "categoria": "party", "categoria_negocio": "PRATA", "complexidade_valor": 2.0, "complexidade_selo": "leve", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "3-6", "duracao": "30 min", "emoji": "🎉", "imagem": "", "desc": "Inspirado no clássico Coup, personagens da Disney usam habilidades especiais, blefe e estratégia para dominar o jogo e eliminar os adversários.", "etiqueta": "Blefe, poderes e intrigas no universo Disney.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1039, "tipo": "aluguel", "nome": "Frost Shelter", "categoria": "familia", "categoria_negocio": "BRONZE", "complexidade_valor": 5.0, "complexidade_selo": "pesado", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "2-5", "duracao": "30 min", "emoji": "♟️", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-frost-shelter-p-1746815863151.jpg", "desc": "Um jogo de vaza onde cada decisão pode significar sobrevivência ou desastre. Ajude sua comunidade a enfrentar um inverno congelante administrando recursos e escolhendo as cartas certas.", "etiqueta": "Faça as escolhas certas para sobreviver ao inverno.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1040, "tipo": "aluguel", "nome": "Magos de Araque", "categoria": "party", "categoria_negocio": "BRONZE", "complexidade_valor": NaN, "complexidade_selo": "pesado", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "2-10", "duracao": "30 min", "emoji": "♟️", "imagem": "https://www.ludeka.com.br/image/cache/data/Jogos-Terceiros/Magos%20de%20Araque/Caixa_Magos_de_Araque_-800x800.jpg", "desc": "Magos atrapalhados tentam lançar feitiços tirados direto do chapéu… mas nem todos funcionam como esperado! Um jogo caótico e divertido onde magia e confusão andam lado a lado.", "etiqueta": "Lance feitiços… e torça para dar certo.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1041, "tipo": "aluguel", "nome": "Mentirocracia", "categoria": "party", "categoria_negocio": "PRATA", "complexidade_valor": NaN, "complexidade_selo": "pesado", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "1-6", "duracao": "60 min", "emoji": "♟️", "imagem": "https://tabuleirosdobrasil.com/wp-content/uploads/tainacan-items/68/5974/Caixa3D-1-275x275.png", "desc": "Uma sátira bem-humorada da vida corporativa, cheia de situações absurdas de escritório. Blefe, intrigas e decisões questionáveis fazem parte dessa divertida “escada corporativa”. Indicado para maiores de 18 anos.", "etiqueta": "Humor ácido sobre a vida no escritório.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1042, "tipo": "aluguel", "nome": "Oikos", "categoria": "party", "categoria_negocio": "PRATA", "complexidade_valor": 5.0, "complexidade_selo": "pesado", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "2-6", "duracao": "60 min", "emoji": "♟️", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-oikos-p-1726235739904.jpg", "desc": "Espécies diferentes disputam espaço na selva em um jogo de dominação de área. Expanda seu território, enfrente os adversários e garanta que sua espécie prospere nesse ecossistema competitivo.", "etiqueta": "Conquiste território e domine a selva.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1043, "tipo": "aluguel", "nome": "Pets! On Board", "categoria": "familia", "categoria_negocio": "BRONZE", "complexidade_valor": 5.0, "complexidade_selo": "pesado", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "2-4", "duracao": "15 min", "emoji": "♟️", "imagem": "https://images.tcdn.com.br/img/img_prod/1018249/pets_on_board_6041_1_7d4724a20aa8ea3dc9bc7128e675571a.jpg", "desc": "Um jogo de colocação estratégica de peças onde seus pets precisam formar conjuntos com chapéus, botas e até armas. Combine itens da melhor forma para marcar mais pontos.", "etiqueta": "Combine acessórios e crie o melhor time de pets.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1044, "tipo": "aluguel", "nome": "Pool Party Stars", "categoria": "party", "categoria_negocio": "BRONZE", "complexidade_valor": 5.0, "complexidade_selo": "pesado", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "3-6", "duracao": "30 min", "emoji": "♟️", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-pool-party-stars-p-1746815079590.jpg", "desc": "Uma festa na piscina cheia de convidados… mas cada jogador tem alguém que prefere manter fora da festa. Descubra quem são os “não convidados” dos seus adversários para ganhar vantagem.", "etiqueta": "Descubra quem não é bem-vindo na festa.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1045, "tipo": "aluguel", "nome": "Sleepy Cats", "categoria": "familia", "categoria_negocio": "BRONZE", "complexidade_valor": 5.0, "complexidade_selo": "pesado", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "2-4", "duracao": "5 min", "emoji": "♟️", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-sleepy-cats-p-1719004865559.jpg", "desc": "Um jogo rápido e caótico onde todos jogam ao mesmo tempo tentando colocar seus gatos na mesa. Parece fácil… até começar a bagunça felina!", "etiqueta": "Coloque seus gatos antes dos outros jogadores.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1046, "tipo": "aluguel", "nome": "Spiky Go!", "categoria": "familia", "categoria_negocio": "BRONZE", "complexidade_valor": 5.0, "complexidade_selo": "pesado", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "2-4", "duracao": "5 min", "emoji": "♟️", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-spiky-go-p-1719003009981.jpg", "desc": "Uma versão divertida do clássico pedra, papel e tesoura com animais da fazenda. Perfeito para crianças aprenderem estratégia e pensar na próxima jogada.", "etiqueta": "Um JO-KEN-PO estratégico para crianças.", "badge": "", "ativo": true, "disponivel": ""}, {"id": 1047, "tipo": "aluguel", "nome": "War: Game of Thrones", "categoria": "familia", "categoria_negocio": "PRATA", "complexidade_valor": 1.0, "complexidade_selo": "leve", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "3-4", "duracao": "120 min", "emoji": "🎉", "imagem": "https://lojagrow.vtexassets.com/arquivos/ids/170029/04000_GROW_War_Game_Of_Thrones.png?v=637733543556830000", "desc": "O clássico jogo de conquista agora no universo de Westeros. Lidere casas poderosas como Stark, Lannister, Targaryen ou Baratheon e lute pelo domínio do Trono de Ferro.", "etiqueta": "Conquiste Westeros e dispute o Trono de Ferro.", "badge": "", "ativo": true, "disponivel": ""}];
+  const dados = [{"id": 1000, "tipo": "aluguel", "nome": "Terraforming Mars", "categoria": "estrategia", "categoria_negocio": "OURO", "complexidade_selo": "pesado", "preco3dias": "45,00", "preco1sem": "70,00", "disponivel": "2026-03-28", "jogadores": "1-5", "duracao": "120 min", "emoji": "♟️", "imagem": "https://cdn.shortpixel.ai/spai/q_lossy+ret_img+to_auto/fryxgames.se/wp-content/uploads/2023/08/TM.png", "desc": "Imagine que Marte é um terreno vazio e você recebeu a missão de transformar o planeta em um lugar habitável. Parece fácil… até você perceber que outras corporações estão tentando fazer o mesmo (e ganhar mais dinheiro que você). Ciência, estratégia e um pouco de competição espacial!", "etiqueta": "Transforme Marte, desenvolva tecnologias e vença a corrida espacial.", "badge": "", "ativo": true}, {"id": 1001, "tipo": "aluguel", "nome": "7 Wonders Duel", "categoria": "dois", "categoria_negocio": "PRATA", "complexidade_valor": 2.2, "complexidade_selo": "moderado", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "2", "duracao": "30 min", "emoji": "🎲", "imagem": "https://m.media-amazon.com/images/I/61R-nY8Zi8L._AC_UF350,350_QL50_.jpg", "desc": "A versão para dois jogadores do clássico 7 Wonders. Aqui você constrói civilizações, ergue maravilhas e tenta ser mais esperto que seu oponente. Pense como um duelo estratégico… mas sem precisar de espada ou armadura.", "etiqueta": "Um duelo de civilizações cheio de estratégia.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1002, "tipo": "aluguel", "nome": "Arkham Horror: The Card Game", "categoria": "estrategia", "categoria_negocio": "OURO", "complexidade_selo": "pesado", "preco3dias": "45,00", "preco1sem": "70,00", "disponivel": "2026-03-28", "jogadores": "1-2", "duracao": "90 min", "emoji": "♟️", "imagem": "https://store.asmodee.com/cdn/shop/files/AHC100_box-left-preview0001_1.jpg?v=1761927680", "desc": "Um jogo cooperativo onde você investiga mistérios sobrenaturais em uma cidade cheia de cultistas, monstros e coisas que definitivamente não deveriam existir. Basicamente: resolva o mistério… antes que o mistério resolva você.", "etiqueta": "Investigue mistérios… e tente não enlouquecer no processo.", "badge": "", "ativo": true}, {"id": 1003, "tipo": "aluguel", "nome": "Everdell", "categoria": "familia", "categoria_negocio": "OURO", "complexidade_valor": 2.8, "complexidade_selo": "moderado", "preco3dias": "45,00", "preco1sem": "70,00", "jogadores": "1-4", "duracao": "90 min", "emoji": "🎲", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-everdell--p-1654264877654.jpg", "desc": "Criaturas da floresta estão construindo uma cidade charmosa cheia de cafés, bibliotecas e construções incríveis. É um jogo lindo, estratégico e fofo… até você perceber que todo mundo está disputando os mesmos recursos.", "etiqueta": "Construa a cidade mais charmosa da floresta.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1004, "tipo": "aluguel", "nome": "Harmonies", "categoria": "familia", "categoria_negocio": "PRATA", "complexidade_valor": 2, "complexidade_selo": "leve", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "1-4", "duracao": "45 min", "emoji": "🎉", "imagem": "https://images.tcdn.com.br/img/img_prod/1041703/180_harmonies_5809_1_8a47dfc5a590e40a7c0db6d724eca0d5.jpg", "desc": "Um jogo relaxante de criar paisagens e habitats naturais usando peças coloridas. Parece calmo e contemplativo… até você começar a calcular cada peça como se fosse um arquiteto da natureza.", "etiqueta": "Monte paisagens e crie habitats naturais.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1005, "tipo": "aluguel", "nome": "Clank!: Um Deck Building de Aventura", "categoria": "familia", "categoria_negocio": "OURO", "complexidade_valor": 2.2, "complexidade_selo": "moderado", "preco3dias": "45,00", "preco1sem": "70,00", "jogadores": "2-4", "duracao": "90 min", "emoji": "🎲", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-clank-a-deck-building-adventure-p-1701435975671.jpg", "desc": "Entre em uma masmorra cheia de tesouros usando cartas para explorar cada vez mais fundo. O problema? Cada passo faz barulho… e barulho acorda o dragão. Pegue o tesouro e fuja rápido — ou vire churrasco medieval.", "etiqueta": "Roube o tesouro e fuja antes que o dragão acorde.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1006, "tipo": "aluguel", "nome": "Robinson Crusoe: Aventuras na Ilha Amaldiçoada", "categoria": "estrategia", "categoria_negocio": "OURO", "complexidade_selo": "pesado", "preco3dias": "45,00", "preco1sem": "70,00", "disponivel": "2026-03-28", "jogadores": "1-4", "duracao": "120 min", "emoji": "♟️", "imagem": "https://images.tcdn.com.br/img/img_prod/1018249/robinson_crusoe_edicao_de_colecionador_5933_1_664def53328df797e7fe1f5f05b75ca3.jpg", "desc": "Um jogo cooperativo de sobrevivência onde você e seu grupo estão presos em uma ilha cheia de perigos. Construam abrigo, busquem comida e enfrentem eventos inesperados… porque a ilha definitivamente não quer que vocês sobrevivam.", "etiqueta": "Sobreviva em uma ilha cheia de perigos e decisões difíceis.", "badge": "", "ativo": true}, {"id": 1007, "tipo": "aluguel", "nome": "Village", "categoria": "estrategia", "categoria_negocio": "PRATA", "complexidade_selo": "pesado", "preco3dias": "30,00", "preco1sem": "50,00", "disponivel": "2026-03-28", "jogadores": "2-4", "duracao": "60 min", "emoji": "♟️", "imagem": "https://paladinsgames.com.br/uploads/produto_fotos/20181127113240_village01.jpg", "desc": "Guie uma família através das gerações em uma vila medieval. Trabalhe, viaje, construa reputação… e aceite que, em algum momento, seus personagens vão virar parte da história da vila.", "etiqueta": "Construa a história da sua família em uma vila medieval.", "badge": "", "ativo": true}, {"id": 1008, "tipo": "aluguel", "nome": "Zombicide: Black Plague", "categoria": "party", "categoria_negocio": "OURO", "complexidade_valor": 2.5, "complexidade_selo": "moderado", "preco3dias": "45,00", "preco1sem": "70,00", "jogadores": "1-6", "duracao": "45 min", "emoji": "🎲", "imagem": "https://cdn.awsli.com.br/800x800/2571/2571144/produto/254816008/11-r944hopxyc.jpeg", "desc": "Um jogo cooperativo de ação em que heróis medievais enfrentam hordas de zumbis. Explore o mapa, encontre equipamentos e sobreviva juntos… porque os mortos-vivos não param de chegar.", "etiqueta": "Derrote hordas de zumbis em uma fantasia medieval.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1009, "tipo": "aluguel", "nome": "Hive Pocket", "categoria": "dois", "categoria_negocio": "BRONZE", "complexidade_valor": 2.2, "complexidade_selo": "moderado", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "2", "duracao": "20 min", "emoji": "🎲", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-hive-pocket-p-1737665460781.jpg", "desc": "Um jogo abstrato para dois jogadores onde insetos com habilidades diferentes disputam posição no tabuleiro. Parece simples… até você perceber que cada movimento conta.", "etiqueta": "Um duelo estratégico de insetos para dois jogadores.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1010, "tipo": "aluguel", "nome": "Dixit", "categoria": "party", "categoria_negocio": "PRATA", "complexidade_valor": 1.2, "complexidade_selo": "leve", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "3-6", "duracao": "30 min", "emoji": "🎉", "imagem": "https://loja.galapagosjogos.com.br/ccstore/v1/images/?source=/file/v4114340520070629436/products/DIX301_3D.jpg", "desc": "Um jogo de imaginação e criatividade onde cada carta tem uma ilustração surreal. Dê pistas criativas para que alguns jogadores acertem… mas não todos!", "etiqueta": "Um jogo de criatividade, histórias e imaginação.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1011, "tipo": "aluguel", "nome": "Trio", "categoria": "party", "categoria_negocio": "BRONZE", "complexidade_valor": 1.1, "complexidade_selo": "leve", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "3-6", "duracao": "15 min", "emoji": "🎉", "imagem": "https://m.media-amazon.com/images/I/712FZZ7CfxL.jpg", "desc": "Um jogo de cartas rápido e cheio de memória. Os jogadores tentam encontrar trios de números iguais observando as cartas na mesa e na mão dos adversários. Simples de aprender, mas surpreendentemente estratégico!", "etiqueta": "Encontre trios de cartas antes dos outros jogadores.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1012, "tipo": "aluguel", "nome": "Bohnanza: Por um Punhado de Feijões!", "categoria": "party", "categoria_negocio": "PRATA", "complexidade_valor": 1.7, "complexidade_selo": "leve", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "2-7", "duracao": "45 min", "emoji": "🎉", "imagem": "https://cdn.awsli.com.br/600x450/1379/1379338/produto/141708957/0dd922fb86.jpg", "desc": "Um divertido jogo de negociação onde os jogadores plantam, colhem e… negociam feijões! Conversar, trocar cartas e fazer bons acordos é a chave para ter a plantação mais lucrativa.", "etiqueta": "Plante feij천es, negocie bem e colha moedas.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1013, "tipo": "aluguel", "nome": "Nova Luna", "categoria": "familia", "categoria_negocio": "BRONZE", "complexidade_valor": 1.9, "complexidade_selo": "leve", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "1-4", "duracao": "30 min", "emoji": "🎉", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-nova-luna-p-1743008759782.jpg", "desc": "Um puzzle estratégico inspirado nos ciclos da lua. Posicione peças cuidadosamente para cumprir objetivos e conectar cores e padrões da melhor forma possível.", "etiqueta": "Um puzzle relaxante de planejamento e conex천es.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1014, "tipo": "aluguel", "nome": "Galaxy Trucker (Second Edition)", "categoria": "familia", "categoria_negocio": "PRATA", "complexidade_valor": 2.3, "complexidade_selo": "moderado", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "2-4", "duracao": "30 min", "emoji": "🎲", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-galaxy-trucker-segunda-edicao-p-1756910252238.jpg", "desc": "Construa sua nave espacial com peças malucas e depois atravesse o espaço cheio de perigos. Meteoro, piratas e falhas na nave são só parte da diversão nessa corrida caótica pelo universo.", "etiqueta": "Monte sua nave e sobreviva à viagem espacial.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1015, "tipo": "aluguel", "nome": "Karuba", "categoria": "familia", "categoria_negocio": "PRATA", "complexidade_valor": 1.4, "complexidade_selo": "leve", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "2-4", "duracao": "30 min", "emoji": "🎉", "imagem": "https://cdn.shoplightspeed.com/shops/636564/files/44714556/1652x2313x2/rental-haba-karuba-2-lb-115-oz.jpg", "desc": "Um jogo de exploração onde aventureiros correm pela selva em busca de templos escondidos. Cada jogador cria seu próprio mapa enquanto tenta chegar primeiro aos tesouros.", "etiqueta": "Explore a selva e encontre templos escondidos.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1016, "tipo": "aluguel", "nome": "Wandering Towers", "categoria": "party", "categoria_negocio": "PRATA", "complexidade_valor": 1.6, "complexidade_selo": "leve", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "1-6", "duracao": "45 min", "emoji": "🎉", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-wandering-towers-p-1749758168857.jpg", "desc": "Magos competem para levar suas poções mágicas até a torre final enquanto torres literalmente se movem pelo caminho. Planejamento, magia e algumas pegadinhas fazem parte da jornada.", "etiqueta": "Leve seus magos até a torre final antes dos rivais.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1017, "tipo": "aluguel", "nome": "Spots", "categoria": "familia", "categoria_negocio": "PRATA", "complexidade_valor": 1.3, "complexidade_selo": "leve", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "1-4", "duracao": "30 min", "emoji": "🎉", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-spots-p-1742582014762.jpg", "desc": "Um jogo de dados rápido e divertido onde cachorrinhos adoráveis tentam completar seus lugares no quintal. Arrisque rolar mais dados… mas cuidado para não exagerar!", "etiqueta": "Role dados e complete seu time de cachorros.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1018, "tipo": "aluguel", "nome": "Challengers!", "categoria": "party", "categoria_negocio": "PRATA", "complexidade_valor": 1.8, "complexidade_selo": "leve", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "1-8", "duracao": "45 min", "emoji": "🎉", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-challengers-p-1699617414957.jpg", "desc": "Monte seu time e participe de um torneio maluco onde cartas entram em campo automaticamente. A graça está em montar o baralho perfeito para vencer adversários em rodadas rápidas.", "etiqueta": "Monte seu time e vença o torneio.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1019, "tipo": "aluguel", "nome": "Sail", "categoria": "dois", "categoria_negocio": "BRONZE", "complexidade_valor": 2.2, "complexidade_selo": "moderado", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "2", "duracao": "30 min", "emoji": "🎲", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-sail-p-1748960669966.jpg", "desc": "Um jogo cooperativo para dois jogadores onde vocês controlam um navio enfrentando perigos do mar. Comunicação e estratégia são essenciais para manter o barco navegando.", "etiqueta": "Coopere para manter o navio seguro no mar.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1020, "tipo": "aluguel", "nome": "Northgard: Terras Desconhecidas", "categoria": "estrategia", "categoria_negocio": "OURO", "complexidade_selo": "moderado", "preco3dias": "45,00", "preco1sem": "70,00", "disponivel": "2026-03-28", "jogadores": "2-5", "duracao": "120 min", "emoji": "🎲", "imagem": "https://m.media-amazon.com/images/I/71cxYlcN53L._AC_UF894,1000_QL80_.jpg", "desc": "Baseado no universo do videogame Northgard, aqui clãs vikings exploram terras desconhecidas, expandem territórios e competem por recursos e glória.", "etiqueta": "Explore terras novas e lidere seu clã viking.", "badge": "", "ativo": true}, {"id": 1021, "tipo": "aluguel", "nome": "Rumble Nation", "categoria": "familia", "categoria_negocio": "PRATA", "complexidade_valor": 1.8, "complexidade_selo": "leve", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "2-4", "duracao": "45 min", "emoji": "🎉", "imagem": "https://store.asmodee.com/cdn/shop/files/HBJRNB0101EN-image0_2000.jpg?v=1743785677", "desc": "Clãs disputam o controle do Japão feudal usando dados e estratégia para dominar províncias. Simples de aprender, mas cheio de decisões importantes.", "etiqueta": "Conquiste províncias e domine o Japão feudal.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1022, "tipo": "aluguel", "nome": "Survive The Island", "categoria": "familia", "categoria_negocio": "PRATA", "complexidade_valor": 1.5, "complexidade_selo": "leve", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "2-5", "duracao": "60 min", "emoji": "🎉", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-survive-the-island-p-1726754118421.jpg", "desc": "A ilha está afundando! Resgate seus exploradores enquanto monstros marinhos, tubarões e outros perigos tentam impedir sua fuga.", "etiqueta": "Fuja da ilha antes que ela desapareça no mar.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1023, "tipo": "aluguel", "nome": "BANG!", "categoria": "party", "categoria_negocio": "BRONZE", "complexidade_valor": 1.6, "complexidade_selo": "leve", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "4-7", "duracao": "30 min", "emoji": "🎉", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-bang-p-1743772662400.jpg", "desc": "Um jogo de cartas de faroeste cheio de blefe e dedução. Xerife, fora-da-lei e renegados trocam tiros tentando descobrir quem está de cada lado.", "etiqueta": "Um duelo de cartas no velho oeste.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1024, "tipo": "aluguel", "nome": "Nimalia", "categoria": "familia", "categoria_negocio": "BRONZE", "complexidade_valor": 1.7, "complexidade_selo": "leve", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "2-4", "duracao": "30 min", "emoji": "🎉", "imagem": "https://images.tcdn.com.br/img/img_prod/558884/nimalia_888901316_1_eff47fcab286e09adc3680f7f452ac91.jpg", "desc": "Crie reservas naturais organizando cartas de animais em padrões específicos para cumprir objetivos e marcar pontos.", "etiqueta": "Monte reservas naturais e organize habitats.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1025, "tipo": "aluguel", "nome": "Marvel United: Multiverse", "categoria": "familia", "categoria_negocio": "PRATA", "complexidade_valor": 2, "complexidade_selo": "leve", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "1-5", "duracao": "30 min", "emoji": "🎉", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-marvel-united-multiverse-p-1736429485827.jpg", "desc": "Heróis da Marvel unem forças para derrotar vilões em um jogo cooperativo rápido e cheio de ação. Cada personagem tem habilidades únicas para salvar o dia.", "etiqueta": "Her처is se unem para derrotar vil천es.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1026, "tipo": "aluguel", "nome": "Ethnos (Segunda Edição)", "categoria": "party", "categoria_negocio": "OURO", "complexidade_valor": 2.4, "complexidade_selo": "moderado", "preco3dias": "45,00", "preco1sem": "70,00", "jogadores": "1-6", "duracao": "60 min", "emoji": "🎲", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-ethnos-2a-edicao-p-1763578311684.jpg", "desc": "Diversas tribos fantásticas disputam o controle de um reino. Recrute aliados, forme grupos poderosos e use as habilidades únicas de cada povo para dominar o mapa.", "etiqueta": "Recrute tribos e conquiste o reino.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1027, "tipo": "aluguel", "nome": "Exploding Kittens", "categoria": "familia", "categoria_negocio": "BRONZE", "complexidade_valor": 1.1, "complexidade_selo": "leve", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "2-5", "duracao": "15 min", "emoji": "🎉", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-exploding-kittens-proibidao-1628168024592.jpg", "desc": "Um jogo de cartas caótico e engraçado onde os jogadores compram cartas torcendo para não encontrar um gatinho explosivo. Se encontrar… bom, torça para ter uma carta de desarme.", "etiqueta": "Evite o gatinho explosivo e sobreviva.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1028, "tipo": "aluguel", "nome": "11 Takes", "categoria": "party", "categoria_negocio": "BRONZE", "complexidade_valor": 1.2, "complexidade_selo": "leve", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "2-7", "duracao": "30 min", "emoji": "🎉", "imagem": "https://images.tcdn.com.br/img/img_prod/1018249/pega_em_6_com_3_promos_423_1_da3345eae2068018791ea20fbc47b2fa_20220221230654.jpg", "desc": "Um jogo rápido de cartas onde cada decisão pode te dar pontos… ou um monte de cartas indesejadas. Planejamento e leitura dos adversários fazem toda a diferença.", "etiqueta": "Jogue cartas com cuidado e evite pegar pontos negativos.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1029, "tipo": "aluguel", "nome": "Arkham Horror: Hora Final", "categoria": "familia", "categoria_negocio": "BRONZE", "complexidade_valor": 2.3, "complexidade_selo": "moderado", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "1-4", "duracao": "60 min", "emoji": "🎲", "imagem": "https://www.playeasy.com.br/media/tmp/webp/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/a/r/arkhamhorrorhorafinal-1_jpg.webp", "desc": "Investigadores correm contra o tempo para impedir a invocação de um Grande Antigo na Universidade Miskatonic. Cooperem, enfrentem monstros e salvem o mundo antes que seja tarde.", "etiqueta": "Impedam o ritual antes que o horror desperte.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1030, "tipo": "aluguel", "nome": "FateFlip: Arrastado pelo Mar", "categoria": "dois", "categoria_negocio": "BRONZE", "complexidade_valor": 1.3, "complexidade_selo": "leve", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "1", "duracao": "45 min", "emoji": "🎉", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-fateflip-arrastado-pelo-mar-p-1729025398981.jpg", "desc": "Um jogo narrativo de sobrevivência no mar onde cada escolha muda o rumo da história. Decisões difíceis, eventos inesperados e muitas possibilidades de final.", "etiqueta": "Sobreviva no mar em uma aventura narrativa.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1031, "tipo": "aluguel", "nome": "Krosmaster Arena 2.0", "categoria": "familia", "categoria_negocio": "OURO", "complexidade_valor": 2.7, "complexidade_selo": "moderado", "preco3dias": "45,00", "preco1sem": "70,00", "jogadores": "2-4", "duracao": "60 min", "emoji": "🎲", "imagem": "https://rihappy.vtexassets.com/arquivos/ids/2338623/image-16b484ede1594925a5916117ed75c113.jpg?v=637771771416430000", "desc": "Um jogo tático de miniaturas onde personagens únicos duelam em arenas cheias de estratégia. Use habilidades especiais e pense alguns passos à frente para vencer.", "etiqueta": "Batalhas táticas em uma arena cheia de personagens.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1032, "tipo": "aluguel", "nome": "Beaver Creek", "categoria": "familia", "categoria_negocio": "BRONZE", "complexidade_valor": 1.1, "complexidade_selo": "leve", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "1-5", "duracao": "30 min", "emoji": "🎉", "imagem": "https://m.media-amazon.com/images/I/61RLczX4P3L._AC_UF1000,1000_QL80_.jpg", "desc": "Construa barragens e organize o trabalho dos castores para criar o melhor sistema no rio. Um jogo leve de estratégia com um toque bem divertido.", "etiqueta": "Ajude os castores a construir a melhor barragem.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1033, "tipo": "aluguel", "nome": "Jester", "categoria": "familia", "categoria_negocio": "PRATA", "complexidade_valor": 3.2, "complexidade_selo": "pesado", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "2-4", "duracao": "90 min", "emoji": "♟️", "imagem": "https://images.tcdn.com.br/img/img_prod/558884/jester_jogo_de_tabuleiro_ms_jogos_888873103_1_f3141e2979d6ea055e57b5251d14984f.jpg", "desc": "No reino medieval, bobos da corte competem para entreter o rei e ganhar prestígio. Um eurogame estratégico onde timing e planejamento fazem toda a diferença.", "etiqueta": "Conquiste o rei com as melhores apresentações.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1034, "tipo": "aluguel", "nome": "Quartz: O Jogo de Cartas", "categoria": "familia", "categoria_negocio": "BRONZE", "complexidade_valor": 1.3, "complexidade_selo": "leve", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "2-4", "duracao": "30 min", "emoji": "🎉", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-quartz-o-jogo-de-cartas-p-1686146482965.jpg", "desc": "Mineiros an천es disputam cristais preciosos em uma mina cheia de riscos. Colete gemas valiosas, mas cuidado com as explos천es que podem acabar com sua coleta.", "etiqueta": "Colete cristais… sem explodir a mina.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1035, "tipo": "aluguel", "nome": "Passa Palavras", "categoria": "dois", "categoria_negocio": "PRATA", "complexidade_valor": 1.5, "complexidade_selo": "leve", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "2", "duracao": "60 min", "emoji": "🎉", "imagem": "https://www.playeasy.com.br/media/tmp/webp/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/a/passa_palavra_jpg.webp", "desc": "Um jogo rápido de palavras onde os jogadores precisam dar dicas criativas para seus parceiros adivinharem os termos certos antes que o tempo acabe.", "etiqueta": "Dê dicas rápidas e adivinhe as palavras.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1036, "tipo": "aluguel", "nome": "AmaZoom", "categoria": "familia", "categoria_negocio": "BRONZE", "complexidade_valor": 2, "complexidade_selo": "leve", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "2-5", "duracao": "45 min", "emoji": "🎉", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-amazoom-uma-competicao-fotografica-na-amazonia-p-1747331060136.jpg", "desc": "Você é um fotógrafo explorando a floresta em busca das melhores imagens da vida selvagem. Planeje bem seus cliques, encontre os animais mais raros e acumule prestígio para se tornar o fotógrafo mais respeitado da mesa.", "etiqueta": "Capture os melhores momentos da vida selvagem.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1037, "tipo": "aluguel", "nome": "Balde de Caranguejo", "categoria": "familia", "categoria_negocio": "BRONZE", "complexidade_valor": 1.5, "complexidade_selo": "leve", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "2-5", "duracao": "30 min", "emoji": "🎉", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-balde-de-caranguejo-p-1747331259377.jpg", "desc": "Um jogo cooperativo estratégico onde você e seus amigos precisam trabalhar juntos para alcançar o objetivo. Comunicação e planejamento são essenciais para escapar do famoso “balde de caranguejos”.", "etiqueta": "Coopere com seus amigos para vencer o desafio.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1038, "tipo": "aluguel", "nome": "Disney Coup: Truques Traiçoeiros", "categoria": "party", "categoria_negocio": "PRATA", "complexidade_selo": "leve", "preco3dias": "30,00", "preco1sem": "50,00", "disponivel": "2026-03-29", "jogadores": "3-6", "duracao": "30 min", "emoji": "🎉", "imagem": "https://cdn.awsli.com.br/600x700/2899/2899778/produto/397492739/disney-coup-2-caixa-3ep9ciabo4.png", "desc": "Inspirado no clássico Coup, personagens da Disney usam habilidades especiais, blefe e estratégia para dominar o jogo e eliminar os adversários.", "etiqueta": "Blefe, poderes e intrigas no universo Disney.", "badge": "", "ativo": true}, {"id": 1039, "tipo": "aluguel", "nome": "Frost Shelter", "categoria": "familia", "categoria_negocio": "BRONZE", "complexidade_valor": 5, "complexidade_selo": "pesado", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "2-5", "duracao": "30 min", "emoji": "♟️", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-frost-shelter-p-1746815863151.jpg", "desc": "Um jogo de vaza onde cada decisão pode significar sobrevivência ou desastre. Ajude sua comunidade a enfrentar um inverno congelante administrando recursos e escolhendo as cartas certas.", "etiqueta": "Faça as escolhas certas para sobreviver ao inverno.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1040, "tipo": "aluguel", "nome": "Magos de Araque", "categoria": "party", "categoria_negocio": "BRONZE", "complexidade_valor": null, "complexidade_selo": "pesado", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "2-10", "duracao": "30 min", "emoji": "♟️", "imagem": "https://www.ludeka.com.br/image/cache/data/Jogos-Terceiros/Magos%20de%20Araque/Caixa_Magos_de_Araque_-800x800.jpg", "desc": "Magos atrapalhados tentam lançar feitiços tirados direto do chapéu… mas nem todos funcionam como esperado! Um jogo caótico e divertido onde magia e confusão andam lado a lado.", "etiqueta": "Lance feitiços… e torça para dar certo.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1041, "tipo": "aluguel", "nome": "Mentirocracia", "categoria": "party", "categoria_negocio": "PRATA", "complexidade_valor": null, "complexidade_selo": "pesado", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "1-6", "duracao": "60 min", "emoji": "♟️", "imagem": "https://tabuleirosdobrasil.com/wp-content/uploads/tainacan-items/68/5974/Caixa3D-1-275x275.png", "desc": "Uma sátira bem-humorada da vida corporativa, cheia de situações absurdas de escritório. Blefe, intrigas e decisões questionáveis fazem parte dessa divertida “escada corporativa”. Indicado para maiores de 18 anos.", "etiqueta": "Humor ácido sobre a vida no escritório.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1042, "tipo": "aluguel", "nome": "Oikos", "categoria": "party", "categoria_negocio": "PRATA", "complexidade_valor": 5, "complexidade_selo": "pesado", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "2-6", "duracao": "60 min", "emoji": "♟️", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-oikos-p-1726235739904.jpg", "desc": "Espécies diferentes disputam espaço na selva em um jogo de dominação de área. Expanda seu território, enfrente os adversários e garanta que sua espécie prospere nesse ecossistema competitivo.", "etiqueta": "Conquiste território e domine a selva.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1043, "tipo": "aluguel", "nome": "Pets! On Board", "categoria": "familia", "categoria_negocio": "BRONZE", "complexidade_valor": 5, "complexidade_selo": "pesado", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "2-4", "duracao": "15 min", "emoji": "♟️", "imagem": "https://images.tcdn.com.br/img/img_prod/1018249/pets_on_board_6041_1_7d4724a20aa8ea3dc9bc7128e675571a.jpg", "desc": "Um jogo de colocação estratégica de peças onde seus pets precisam formar conjuntos com chapéus, botas e até armas. Combine itens da melhor forma para marcar mais pontos.", "etiqueta": "Combine acessórios e crie o melhor time de pets.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1044, "tipo": "aluguel", "nome": "Pool Party Stars", "categoria": "party", "categoria_negocio": "BRONZE", "complexidade_valor": 5, "complexidade_selo": "pesado", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "3-6", "duracao": "30 min", "emoji": "♟️", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-pool-party-stars-p-1746815079590.jpg", "desc": "Uma festa na piscina cheia de convidados… mas cada jogador tem alguém que prefere manter fora da festa. Descubra quem são os “não convidados” dos seus adversários para ganhar vantagem.", "etiqueta": "Descubra quem não é bem-vindo na festa.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1045, "tipo": "aluguel", "nome": "Sleepy Cats", "categoria": "familia", "categoria_negocio": "BRONZE", "complexidade_valor": 5, "complexidade_selo": "pesado", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "2-4", "duracao": "5 min", "emoji": "♟️", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-sleepy-cats-p-1719004865559.jpg", "desc": "Um jogo rápido e caótico onde todos jogam ao mesmo tempo tentando colocar seus gatos na mesa. Parece fácil… até começar a bagunça felina!", "etiqueta": "Coloque seus gatos antes dos outros jogadores.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1046, "tipo": "aluguel", "nome": "Spiky Go!", "categoria": "familia", "categoria_negocio": "BRONZE", "complexidade_valor": 5, "complexidade_selo": "pesado", "preco3dias": "20,00", "preco1sem": "35,00", "jogadores": "2-4", "duracao": "5 min", "emoji": "♟️", "imagem": "https://67287.cdn.simplo7.net/static/67287/sku/jogos-de-tabuleiro-e-cardgames-jogo-spiky-go-p-1719003009981.jpg", "desc": "Uma versão divertida do clássico pedra, papel e tesoura com animais da fazenda. Perfeito para crianças aprenderem estratégia e pensar na próxima jogada.", "etiqueta": "Um JO-KEN-PO estratégico para crianças.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}, {"id": 1047, "tipo": "aluguel", "nome": "War: Game of Thrones", "categoria": "familia", "categoria_negocio": "PRATA", "complexidade_valor": 1, "complexidade_selo": "leve", "preco3dias": "30,00", "preco1sem": "50,00", "jogadores": "3-4", "duracao": "120 min", "emoji": "🎉", "imagem": "https://lojagrow.vtexassets.com/arquivos/ids/170029/04000_GROW_War_Game_Of_Thrones.png?v=637733543556830000", "desc": "O clássico jogo de conquista agora no universo de Westeros. Lidere casas poderosas como Stark, Lannister, Targaryen ou Baratheon e lute pelo domínio do Trono de Ferro.", "etiqueta": "Conquiste Westeros e dispute o Trono de Ferro.", "badge": "", "ativo": true, "disponivel": "2026-03-28"}];
   // Sempre atualiza imagens, desc e etiqueta — preserva apenas ativo e disponivel
   try {
     const existentes = JSON.parse(localStorage.getItem('ludojogos_aluguel') || '[]');
@@ -855,11 +655,12 @@ if (sessionStorage.getItem('ludo_auth') === '1') {
       const ex = mapaExist[j.id] || {};
       return {
         ...j,
-        // Preserva ajustes manuais
         ativo:      ex.ativo      !== undefined ? ex.ativo      : j.ativo,
         disponivel: ex.disponivel !== undefined ? ex.disponivel : j.disponivel,
       };
     });
+    const idsExist = new Set(existentes.map(j => j.id));
+    dados.forEach(j => { if (!idsExist.has(j.id)) merged.push(j); });
     localStorage.setItem('ludojogos_aluguel', JSON.stringify(merged));
   } catch(e) {
     localStorage.setItem('ludojogos_aluguel', JSON.stringify(dados));
@@ -1253,6 +1054,141 @@ function toast(msg, tipo='ok') {
 
 // ── INIT ──
 function init() { renderVenda(); renderAluguel(); atualizarStats(); }
+
+
+// ── TROCAR ABA ──
+function trocarAba(aba) {
+  document.getElementById('painel-venda').style.display   = aba==='venda'   ? 'block' : 'none';
+  document.getElementById('painel-aluguel').style.display = aba==='aluguel' ? 'block' : 'none';
+  document.getElementById('tab-venda').classList.toggle('active', aba==='venda');
+  document.getElementById('tab-aluguel').classList.toggle('active', aba==='aluguel');
+  document.getElementById('sb-venda').classList.toggle('active', aba==='venda');
+  document.getElementById('sb-aluguel').classList.toggle('active', aba==='aluguel');
+  const titles = { venda: 'Jogos para <span>Venda</span>', aluguel: 'Jogos para <span>Aluguel</span>' };
+  document.getElementById('topbar-title').innerHTML = titles[aba];
+}
+
+// ── RENDER VENDA ──
+function renderVenda() {
+  const lista = getVenda();
+  const tbody = document.getElementById('tbody-venda');
+  const empty = document.getElementById('empty-venda');
+  if (!lista.length) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  const CAT = { familia:'Família', estrategia:'Estratégia', party:'Party Game', dois:'2 Jogadores' };
+  tbody.innerHTML = lista.map(j => {
+    const img = j.imagem ? `<img src="${j.imagem}" class="td-thumb" onerror="this.style.display='none'" alt=""/>` : `<span class="td-emoji-fb">${j.emoji}</span>`;
+    const sc  = j.estoque===0 ? 'stock-zero' : j.estoque<=3 ? 'stock-low' : 'stock-ok';
+    const bdg = j.badge ? `<span class="tbl-badge tbl-${j.badge}">${j.badge}</span>` : '—';
+    return `<tr>
+      <td>${img}</td><td class="td-name">${j.nome}</td>
+      <td>${CAT[j.categoria]||j.categoria}</td>
+      <td class="td-price">R$ ${j.preco}</td>
+      <td class="${sc}">${j.estoque} un.</td>
+      <td>${bdg}</td>
+      <td><label class="toggle"><input type="checkbox" ${j.ativo?'checked':''} onchange="toggleItem('venda',${j.id},this.checked)"/><span class="toggle-slider"></span></label></td>
+      <td><div class="tbl-actions">
+        <button class="btn-tbl-edit" onclick="editarItem('venda',${j.id})">✏️ Editar</button>
+        <button class="btn-tbl-del"  onclick="deletarItem('venda',${j.id})">🗑</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+}
+
+// ── RENDER ALUGUEL ──
+function renderAluguel() {
+  const lista = getAluguel();
+  const tbody = document.getElementById('tbody-aluguel');
+  const empty = document.getElementById('empty-aluguel');
+  if (!lista.length) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  const TC = { OURO:'tbl-ouro', PRATA:'tbl-prata', BRONZE:'tbl-bronze' };
+  const TL = { OURO:'🥇 Ouro', PRATA:'🥈 Prata', BRONZE:'🥉 Bronze' };
+  const CC = { leve:'tbl-leve', moderado:'tbl-moderado', pesado:'tbl-pesado' };
+  const CL = { leve:'🌿 Leve', moderado:'🎲 Moderado', pesado:'♟️ Pesado' };
+  tbody.innerHTML = lista.map(j => {
+    const img  = j.imagem ? `<img src="${j.imagem}" class="td-thumb" onerror="this.style.display='none'" alt=""/>` : `<span class="td-emoji-fb">${j.emoji}</span>`;
+    const disp = estaDisponivel(j.disponivel);
+    const cn   = (j.categoria_negocio||'').toUpperCase();
+    const sc   = j.complexidade_selo||'leve';
+    return `<tr>
+      <td>${img}</td><td class="td-name">${j.nome}</td>
+      <td>
+        <span class="tbl-badge ${TC[cn]||''}">${TL[cn]||cn}</span>
+        <span class="tbl-badge ${CC[sc]||''}" style="margin-left:3px">${CL[sc]||sc}</span>
+      </td>
+      <td class="td-price">R$ ${j.preco3dias}</td>
+      <td class="td-price">R$ ${j.preco1sem}</td>
+      <td>${disp ? '<div class="tbl-ok">✅ Disponível</div>' : `<div class="tbl-busy">📅 ${j.disponivel}</div>`}</td>
+      <td><label class="toggle"><input type="checkbox" ${j.ativo?'checked':''} onchange="toggleItem('aluguel',${j.id},this.checked)"/><span class="toggle-slider"></span></label></td>
+      <td><div class="tbl-actions">
+        <button class="btn-tbl-edit" onclick="editarItem('aluguel',${j.id})">✏️ Editar</button>
+        <button class="btn-tbl-del"  onclick="deletarItem('aluguel',${j.id})">🗑</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+}
+
+// ── TOAST ──
+function toast(msg, tipo='ok') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast show' + (tipo==='err' ? ' err' : tipo==='warn' ? ' warn' : '');
+  setTimeout(() => el.classList.remove('show'), 3500);
+}
+
+// ── EXPORTAR JSON ──
+function exportarJSON() {
+  const dados = {
+    venda:   JSON.parse(localStorage.getItem('ludojogos_catalogo') || '[]'),
+    aluguel: JSON.parse(localStorage.getItem('ludojogos_aluguel')  || '[]'),
+    exportado_em: new Date().toISOString(),
+  };
+  const blob = new Blob([JSON.stringify(dados, null, 2)], { type: 'application/json' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url;
+  a.download = `ludojogos-backup-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  fecharModal();
+  toast('✅ JSON exportado com sucesso!');
+}
+
+// ── IMPORTAR JSON ──
+function importarJSON(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const dados = JSON.parse(e.target.result);
+      let importados = 0;
+      if (dados.aluguel && Array.isArray(dados.aluguel)) {
+        localStorage.setItem('ludojogos_aluguel', JSON.stringify(dados.aluguel));
+        importados += dados.aluguel.length;
+      }
+      if (dados.venda && Array.isArray(dados.venda)) {
+        localStorage.setItem('ludojogos_catalogo', JSON.stringify(dados.venda));
+        importados += dados.venda.length;
+      }
+      init();
+      toast(`✅ ${importados} jogos importados com sucesso!`);
+    } catch(err) {
+      toast('❌ Arquivo inválido. Use um JSON exportado pelo Gerenciamento.', 'err');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+// ── MODAL ──
+function abrirModalExport() { document.getElementById('modalExport').classList.add('show'); }
+function fecharModal()      { document.getElementById('modalExport').classList.remove('show'); }
+
+// ── INIT ──
+function init() { renderVenda(); renderAluguel(); atualizarStats(); }
+
 </script>
 </body>
 </html>
